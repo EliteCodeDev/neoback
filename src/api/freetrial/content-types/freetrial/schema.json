@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "freetrials",
+  "info": {
+    "singularName": "freetrial",
+    "pluralName": "freetrials",
+    "displayName": "Freetrial",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    },
+    "instanceName": {
+      "type": "string"
+    },
+    "apiKey": {
+      "type": "string"
+    },
+    "instanceId": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "freetrials"
+    }
+  }
+}

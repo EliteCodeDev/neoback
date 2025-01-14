@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscriptions",
+  "info": {
+    "singularName": "subscription",
+    "pluralName": "subscriptions",
+    "displayName": "Subscription",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "plan": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "subscriptions"
+    },
+    "url": {
+      "type": "string"
+    },
+    "statusPlan": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "active",
+        "on-hold",
+        "cancelled",
+        "expired",
+        "pending-cancel"
+      ],
+      "default": "pending"
+    },
+    "instanceName": {
+      "type": "string"
+    },
+    "apiKey": {
+      "type": "string"
+    },
+    "instanceId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "CRM",
+        "API",
+        "N8N"
+      ]
+    },
+    "email": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "billingCycle": {
+      "type": "string"
+    }
+  }
+}
