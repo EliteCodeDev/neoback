@@ -27,12 +27,7 @@
       ]
     },
     "icono": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "type": "string"
     }
   }
 }

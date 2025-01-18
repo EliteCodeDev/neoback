@@ -4,7 +4,8 @@
   "info": {
     "singularName": "support",
     "pluralName": "supports",
-    "displayName": "Support"
+    "displayName": "Support",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -24,12 +25,8 @@
         "Unirse"
       ]
     },
-    "icon": {
-      "allowedTypes": [
-        "images"
-      ],
-      "type": "media",
-      "multiple": false
+    "icono": {
+      "type": "string"
     }
   }
 }

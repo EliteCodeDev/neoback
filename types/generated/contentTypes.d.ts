@@ -385,7 +385,7 @@ export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    icono: Schema.Attribute.Media<'images'>;
+    icono: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -452,6 +452,7 @@ export interface ApiSubscriptionSubscription
 export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
   collectionName: 'supports';
   info: {
+    description: '';
     displayName: 'Support';
     pluralName: 'supports';
     singularName: 'support';
@@ -464,7 +465,7 @@ export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    icon: Schema.Attribute.Media<'images'>;
+    icono: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
