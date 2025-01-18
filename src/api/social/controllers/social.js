@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * freetrial controller
+ * social controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::freetrial.freetrial');
+module.exports = createCoreController('api::social.social');

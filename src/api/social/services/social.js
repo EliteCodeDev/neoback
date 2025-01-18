@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * freetrial service
+ * social service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::freetrial.freetrial');
+module.exports = createCoreService('api::social.social');

@@ -1,26 +1,21 @@
 import type { Struct, Schema } from '@strapi/strapi';
 
-export interface ApiFreetrialFreetrial extends Struct.CollectionTypeSchema {
-  collectionName: 'freetrials';
+export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
+  collectionName: 'socials';
   info: {
-    singularName: 'freetrial';
-    pluralName: 'freetrials';
-    displayName: 'Freetrial';
+    singularName: 'social';
+    pluralName: 'socials';
+    displayName: 'Social';
     description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    startDate: Schema.Attribute.DateTime;
-    endDate: Schema.Attribute.DateTime;
-    instanceName: Schema.Attribute.String;
-    apiKey: Schema.Attribute.String;
-    instanceId: Schema.Attribute.String;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
+    nombre: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+    accion: Schema.Attribute.Enumeration<['Unirse', 'Seguir', 'Subscribirse']>;
+    icono: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -29,10 +24,7 @@ export interface ApiFreetrialFreetrial extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::freetrial.freetrial'
-    >;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::social.social'>;
   };
 }
 
@@ -79,6 +71,36 @@ export interface ApiSubscriptionSubscription
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::subscription.subscription'
+    >;
+  };
+}
+
+export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
+  collectionName: 'supports';
+  info: {
+    singularName: 'support';
+    pluralName: 'supports';
+    displayName: 'Support';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    nombre: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+    accion: Schema.Attribute.Enumeration<['Contactar', 'Unirse']>;
+    icon: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::support.support'
     >;
   };
 }
@@ -558,10 +580,6 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::subscription.subscription'
     >;
-    freetrials: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::freetrial.freetrial'
-    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -942,8 +960,9 @@ export interface AdminTransferTokenPermission
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
-      'api::freetrial.freetrial': ApiFreetrialFreetrial;
+      'api::social.social': ApiSocialSocial;
       'api::subscription.subscription': ApiSubscriptionSubscription;
+      'api::support.support': ApiSupportSupport;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;

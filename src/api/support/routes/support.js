@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * freetrial router
+ * support router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::freetrial.freetrial');
+module.exports = createCoreRouter('api::support.support');

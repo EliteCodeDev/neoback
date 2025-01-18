@@ -76,12 +76,6 @@
       "relation": "oneToMany",
       "target": "api::subscription.subscription",
       "mappedBy": "user"
-    },
-    "freetrials": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::freetrial.freetrial",
-      "mappedBy": "user"
     }
   }
 }
