@@ -4,15 +4,28 @@
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "Order"
+    "displayName": "Order",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "product": {
+    "date": {
+      "type": "datetime"
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "statusOrder": {
       "type": "string"
+    },
+    "idWoo": {
+      "type": "integer"
+    },
+    "products": {
+      "type": "json"
     }
   }
 }

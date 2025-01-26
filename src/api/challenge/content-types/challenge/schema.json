@@ -41,6 +41,9 @@
     },
     "step": {
       "type": "integer"
+    },
+    "idMeta": {
+      "type": "string"
     }
   }
 }
