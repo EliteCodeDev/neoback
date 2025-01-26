@@ -501,54 +501,6 @@ export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiSubscriptionSubscription
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'subscriptions';
-  info: {
-    description: '';
-    displayName: 'Subscription';
-    pluralName: 'subscriptions';
-    singularName: 'subscription';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    apiKey: Schema.Attribute.String;
-    billingCycle: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.String;
-    endDate: Schema.Attribute.DateTime;
-    instanceId: Schema.Attribute.String;
-    instanceName: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::subscription.subscription'
-    > &
-      Schema.Attribute.Private;
-    password: Schema.Attribute.String;
-    plan: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    startDate: Schema.Attribute.DateTime;
-    statusPlan: Schema.Attribute.Enumeration<
-      ['pending', 'active', 'on-hold', 'cancelled', 'expired', 'pending-cancel']
-    > &
-      Schema.Attribute.DefaultTo<'pending'>;
-    type: Schema.Attribute.Enumeration<['CRM', 'API', 'N8N']>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    url: Schema.Attribute.String;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
 export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
   collectionName: 'supports';
   info: {
@@ -1073,10 +1025,6 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    subscriptions: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::subscription.subscription'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1103,7 +1051,6 @@ declare module '@strapi/strapi' {
       'api::new.new': ApiNewNew;
       'api::order.order': ApiOrderOrder;
       'api::social.social': ApiSocialSocial;
-      'api::subscription.subscription': ApiSubscriptionSubscription;
       'api::support.support': ApiSupportSupport;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
