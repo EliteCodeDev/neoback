@@ -12,11 +12,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "date": {
+    "dateCreated": {
       "type": "datetime"
-    },
-    "amount": {
-      "type": "decimal"
     },
     "statusOrder": {
       "type": "string"
@@ -24,8 +21,17 @@
     "idWoo": {
       "type": "integer"
     },
+    "total": {
+      "type": "decimal"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "orders"
+    },
     "products": {
-      "type": "json"
+      "type": "string"
     }
   }
 }

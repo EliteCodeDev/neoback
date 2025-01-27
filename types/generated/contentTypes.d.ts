@@ -451,21 +451,25 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    amount: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    date: Schema.Attribute.DateTime;
+    dateCreated: Schema.Attribute.DateTime;
     idWoo: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
-    products: Schema.Attribute.JSON;
+    products: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     statusOrder: Schema.Attribute.String;
+    total: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1012,6 +1016,7 @@ export interface PluginUsersPermissionsUser
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
