@@ -381,15 +381,11 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    city: Schema.Attribute.String;
-    country: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     endDate: Schema.Attribute.DateTime;
-    firstName: Schema.Attribute.String;
     idMeta: Schema.Attribute.String;
-    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -397,15 +393,17 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     login: Schema.Attribute.String;
+    passed: Schema.Attribute.Boolean;
     password: Schema.Attribute.String;
-    phone: Schema.Attribute.Integer;
-    platform: Schema.Attribute.String;
+    platform: Schema.Attribute.Enumeration<['MT4']> &
+      Schema.Attribute.DefaultTo<'MT4'>;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.String;
     server: Schema.Attribute.String;
     startDate: Schema.Attribute.DateTime;
-    step: Schema.Attribute.Integer;
-    street: Schema.Attribute.String;
+    step: Schema.Attribute.Enumeration<['one', 'two', 'three']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'one'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -413,7 +411,6 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    zipCode: Schema.Attribute.String;
   };
 }
 

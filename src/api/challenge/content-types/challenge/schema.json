@@ -27,43 +27,37 @@
     "server": {
       "type": "string"
     },
-    "platform": {
-      "type": "string"
-    },
-    "result": {
-      "type": "string"
-    },
     "startDate": {
       "type": "datetime"
     },
     "endDate": {
       "type": "datetime"
     },
+    "passed": {
+      "type": "boolean"
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "MT4"
+      ],
+      "required": false,
+      "default": "MT4"
+    },
     "step": {
-      "type": "integer"
+      "type": "enumeration",
+      "enum": [
+        "one",
+        "two",
+        "three"
+      ],
+      "required": true,
+      "default": "one"
     },
     "idMeta": {
       "type": "string"
     },
-    "firstName": {
-      "type": "string"
-    },
-    "lastName": {
-      "type": "string"
-    },
-    "phone": {
-      "type": "integer"
-    },
-    "country": {
-      "type": "string"
-    },
-    "city": {
-      "type": "string"
-    },
-    "street": {
-      "type": "string"
-    },
-    "zipCode": {
+    "result": {
       "type": "string"
     }
   }
