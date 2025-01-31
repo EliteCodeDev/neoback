@@ -102,6 +102,13 @@
     },
     "zipCode": {
       "type": "string"
+    },
+    "rol": {
+      "type": "enumeration",
+      "enum": [
+        "user",
+        "admin"
+      ]
     }
   }
 }
