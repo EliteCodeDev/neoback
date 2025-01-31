@@ -395,15 +395,13 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     login: Schema.Attribute.String;
     passed: Schema.Attribute.Boolean;
     password: Schema.Attribute.String;
+    phase: Schema.Attribute.Integer;
     platform: Schema.Attribute.Enumeration<['MT4']> &
       Schema.Attribute.DefaultTo<'MT4'>;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.String;
     server: Schema.Attribute.String;
     startDate: Schema.Attribute.DateTime;
-    step: Schema.Attribute.Enumeration<['one', 'two', 'three']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'one'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

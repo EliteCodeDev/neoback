@@ -44,21 +44,14 @@
       "required": false,
       "default": "MT4"
     },
-    "step": {
-      "type": "enumeration",
-      "enum": [
-        "one",
-        "two",
-        "three"
-      ],
-      "required": true,
-      "default": "one"
-    },
     "idMeta": {
       "type": "string"
     },
     "result": {
       "type": "string"
+    },
+    "phase": {
+      "type": "integer"
     }
   }
 }
