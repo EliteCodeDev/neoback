@@ -1064,6 +1064,8 @@ export interface PluginUsersPermissionsUser
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    rol: Schema.Attribute.Enumeration<['User', 'Admin']> &
+      Schema.Attribute.DefaultTo<'User'>;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
