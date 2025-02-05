@@ -386,6 +386,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     endDate: Schema.Attribute.DateTime;
     idMeta: Schema.Attribute.String;
+    initBalance: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -393,13 +394,14 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     login: Schema.Attribute.String;
-    passed: Schema.Attribute.Boolean;
     password: Schema.Attribute.String;
     phase: Schema.Attribute.Integer;
     platform: Schema.Attribute.Enumeration<['MT4']> &
       Schema.Attribute.DefaultTo<'MT4'>;
     publishedAt: Schema.Attribute.DateTime;
-    result: Schema.Attribute.String;
+    result: Schema.Attribute.Enumeration<
+      ['progress', 'disapproved', 'approved']
+    >;
     server: Schema.Attribute.String;
     startDate: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -409,35 +411,6 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-  };
-}
-
-export interface ApiNewNew extends Struct.CollectionTypeSchema {
-  collectionName: 'news';
-  info: {
-    description: '';
-    displayName: 'New';
-    pluralName: 'news';
-    singularName: 'new';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    image: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::new.new'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    url: Schema.Attribute.String;
   };
 }
 
@@ -1095,7 +1068,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::challenge.challenge': ApiChallengeChallenge;
-      'api::new.new': ApiNewNew;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
       'api::social.social': ApiSocialSocial;

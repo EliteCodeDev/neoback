@@ -33,9 +33,6 @@
     "endDate": {
       "type": "datetime"
     },
-    "passed": {
-      "type": "boolean"
-    },
     "platform": {
       "type": "enumeration",
       "enum": [
@@ -47,11 +44,19 @@
     "idMeta": {
       "type": "string"
     },
-    "result": {
-      "type": "string"
-    },
     "phase": {
       "type": "integer"
+    },
+    "initBalance": {
+      "type": "integer"
+    },
+    "result": {
+      "type": "enumeration",
+      "enum": [
+        "progress",
+        "disapproved",
+        "approved"
+      ]
     }
   }
 }
