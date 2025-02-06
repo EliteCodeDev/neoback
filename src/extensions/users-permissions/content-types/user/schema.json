@@ -88,9 +88,6 @@
     "lastName": {
       "type": "string"
     },
-    "phone": {
-      "type": "integer"
-    },
     "country": {
       "type": "string"
     },
@@ -111,6 +108,9 @@
       ],
       "default": "User",
       "required": false
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }
