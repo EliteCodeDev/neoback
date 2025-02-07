@@ -369,6 +369,41 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBrokerAccountBrokerAccount
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'broker_accounts';
+  info: {
+    description: '';
+    displayName: 'BrokerAccount';
+    pluralName: 'broker-accounts';
+    singularName: 'broker-account';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    balance: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::broker-account.broker-account'
+    > &
+      Schema.Attribute.Private;
+    login: Schema.Attribute.String;
+    password: Schema.Attribute.String;
+    platform: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    server: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    used: Schema.Attribute.Boolean;
+  };
+}
+
 export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
   collectionName: 'challenges';
   info: {
@@ -1067,6 +1102,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::broker-account.broker-account': ApiBrokerAccountBrokerAccount;
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
