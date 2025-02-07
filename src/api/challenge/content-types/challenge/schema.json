@@ -57,6 +57,12 @@
         "disapproved",
         "approved"
       ]
+    },
+    "broker_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::broker-account.broker-account",
+      "mappedBy": "challenge"
     }
   }
 }

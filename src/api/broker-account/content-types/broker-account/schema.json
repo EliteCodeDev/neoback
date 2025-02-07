@@ -20,10 +20,6 @@
       "type": "string",
       "pluginOptions": {}
     },
-    "balance": {
-      "type": "string",
-      "pluginOptions": {}
-    },
     "server": {
       "type": "string",
       "pluginOptions": {}
@@ -38,6 +34,18 @@
     },
     "inversorPass": {
       "type": "string"
+    },
+    "balance": {
+      "type": "integer"
+    },
+    "idMeta": {
+      "type": "string"
+    },
+    "challenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::challenge.challenge",
+      "inversedBy": "broker_account"
     }
   }
 }

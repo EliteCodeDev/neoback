@@ -382,10 +382,15 @@ export interface ApiBrokerAccountBrokerAccount
     draftAndPublish: false;
   };
   attributes: {
-    balance: Schema.Attribute.String;
+    balance: Schema.Attribute.Integer;
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    idMeta: Schema.Attribute.String;
     inversorPass: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -417,6 +422,10 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    broker_account: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::broker-account.broker-account'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
