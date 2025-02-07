@@ -8,27 +8,36 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "login": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "password": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "balance": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "server": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "platform": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "used": {
-      "type": "boolean"
+      "type": "boolean",
+      "pluginOptions": {}
+    },
+    "inversorPass": {
+      "type": "string"
     }
   }
 }
