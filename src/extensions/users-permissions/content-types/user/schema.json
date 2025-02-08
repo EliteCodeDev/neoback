@@ -111,6 +111,17 @@
     },
     "phone": {
       "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "statusVerified": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ]
     }
   }
 }

@@ -1081,6 +1081,10 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    sessionId: Schema.Attribute.String;
+    statusVerified: Schema.Attribute.Enumeration<
+      ['pending', 'approved', 'rejected']
+    >;
     street: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
