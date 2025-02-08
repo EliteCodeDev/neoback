@@ -18,44 +18,23 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "challenges"
     },
-    "login": {
-      "type": "string"
-    },
-    "password": {
-      "type": "string"
-    },
-    "server": {
-      "type": "string"
-    },
     "startDate": {
       "type": "datetime"
     },
     "endDate": {
       "type": "datetime"
     },
-    "platform": {
-      "type": "enumeration",
-      "enum": [
-        "MT4"
-      ],
-      "required": false,
-      "default": "MT4"
-    },
-    "idMeta": {
-      "type": "string"
-    },
     "phase": {
-      "type": "integer"
-    },
-    "initBalance": {
       "type": "integer"
     },
     "result": {
       "type": "enumeration",
       "enum": [
+        "init",
         "progress",
         "disapproved",
-        "approved"
+        "approved",
+        "withdrawals"
       ]
     },
     "broker_account": {

@@ -430,24 +430,17 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     endDate: Schema.Attribute.DateTime;
-    idMeta: Schema.Attribute.String;
-    initBalance: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge.challenge'
     > &
       Schema.Attribute.Private;
-    login: Schema.Attribute.String;
-    password: Schema.Attribute.String;
     phase: Schema.Attribute.Integer;
-    platform: Schema.Attribute.Enumeration<['MT4']> &
-      Schema.Attribute.DefaultTo<'MT4'>;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.Enumeration<
-      ['progress', 'disapproved', 'approved']
+      ['init', 'progress', 'disapproved', 'approved', 'withdrawals']
     >;
-    server: Schema.Attribute.String;
     startDate: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
