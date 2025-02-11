@@ -426,6 +426,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::broker-account.broker-account'
     >;
+    challengeId: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

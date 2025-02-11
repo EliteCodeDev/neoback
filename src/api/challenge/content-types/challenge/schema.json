@@ -42,6 +42,9 @@
       "relation": "oneToOne",
       "target": "api::broker-account.broker-account",
       "mappedBy": "challenge"
+    },
+    "challengeId": {
+      "type": "string"
     }
   }
 }
