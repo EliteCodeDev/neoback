@@ -440,7 +440,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     phase: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.Enumeration<
-      ['init', 'progress', 'disapproved', 'approved', 'withdrawals']
+      ['init', 'progress', 'disapproved', 'approved', 'withdrawal', 'retry']
     >;
     startDate: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;

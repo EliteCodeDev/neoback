@@ -34,7 +34,8 @@
         "progress",
         "disapproved",
         "approved",
-        "withdrawals"
+        "withdrawal",
+        "retry"
       ]
     },
     "broker_account": {
