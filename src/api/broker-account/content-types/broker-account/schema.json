@@ -30,7 +30,9 @@
     },
     "used": {
       "type": "boolean",
-      "pluginOptions": {}
+      "pluginOptions": {},
+      "default": false,
+      "required": true
     },
     "inversorPass": {
       "type": "string"
