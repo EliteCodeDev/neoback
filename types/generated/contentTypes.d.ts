@@ -585,6 +585,36 @@ export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiWithdrawWithdraw extends Struct.CollectionTypeSchema {
+  collectionName: 'withdraws';
+  info: {
+    displayName: 'Withdraw';
+    pluralName: 'withdraws';
+    singularName: 'withdraw';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    amount: Schema.Attribute.Integer;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::withdraw.withdraw'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    red: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wallet: Schema.Attribute.String;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1085,6 +1115,7 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.role'
     >;
     sessionId: Schema.Attribute.String;
+    statusSign: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     statusVerified: Schema.Attribute.Enumeration<
       ['pending', 'approved', 'rejected']
     >;
@@ -1118,6 +1149,7 @@ declare module '@strapi/strapi' {
       'api::order.order': ApiOrderOrder;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
+      'api::withdraw.withdraw': ApiWithdrawWithdraw;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

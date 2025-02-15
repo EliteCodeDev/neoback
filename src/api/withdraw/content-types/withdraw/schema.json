@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "withdraws",
+  "info": {
+    "singularName": "withdraw",
+    "pluralName": "withdraws",
+    "displayName": "Withdraw"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "wallet": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "red": {
+      "type": "string"
+    }
+  }
+}
