@@ -24,8 +24,9 @@ module.exports = ({ env }) => ({
     config: {
       register: {
         allowedFields: [
-          "name",   // Permitir el campo 'name'
-          "phone"   // Permitir el campo 'phone'
+          "phone",
+          "firstName",
+          "lastName"  // Permitir el campo 'phone'
         ],
       },
     },
