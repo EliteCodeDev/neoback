@@ -440,7 +440,6 @@ export interface ApiChallengeConditionChallengeCondition
     max_loss_per_trade: Schema.Attribute.Decimal;
     max_loss_total: Schema.Attribute.Decimal;
     min_trading_days: Schema.Attribute.Decimal;
-    phase_number: Schema.Attribute.UID;
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     profit: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;

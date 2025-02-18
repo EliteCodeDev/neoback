@@ -39,9 +39,6 @@
     "max_loss_daily": {
       "type": "decimal"
     },
-    "phase_number": {
-      "type": "uid"
-    },
     "product": {
       "type": "relation",
       "relation": "manyToOne",
