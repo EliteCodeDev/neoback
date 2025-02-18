@@ -422,7 +422,7 @@ export interface ApiChallengeConditionChallengeCondition
     singularName: 'challenge-condition';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     consistency: Schema.Attribute.Decimal;
@@ -570,7 +570,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     singularName: 'product';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     challenge_conditions: Schema.Attribute.Relation<
