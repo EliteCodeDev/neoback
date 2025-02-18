@@ -412,6 +412,60 @@ export interface ApiBrokerAccountBrokerAccount
   };
 }
 
+export interface ApiChallengeConditionChallengeCondition
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'challenge_conditions';
+  info: {
+    displayName: 'ChallengeCondition';
+    pluralName: 'challenge-conditions';
+    singularName: 'challenge-condition';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
+    >;
+    consistency: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    leverage: Schema.Attribute.Decimal;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-condition.challenge-condition'
+    > &
+      Schema.Attribute.Private;
+    max_loss_per_day: Schema.Attribute.Decimal;
+    max_loss_per_trade: Schema.Attribute.Decimal;
+    max_loss_total: Schema.Attribute.Decimal;
+    min_trading_days: Schema.Attribute.Decimal;
+    name: Schema.Attribute.String;
+    phase: Schema.Attribute.Enumeration<
+      ['FASE 0', 'FASE 1', 'FASE 2', 'FASE REAL']
+    >;
+    profit: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    step: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      >;
+    trading_period: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    weekend_trading: Schema.Attribute.Decimal;
+  };
+}
+
 export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
   collectionName: 'challenges';
   info: {
@@ -427,6 +481,10 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     broker_account: Schema.Attribute.Relation<
       'oneToOne',
       'api::broker-account.broker-account'
+    >;
+    challenge_condition: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge-condition.challenge-condition'
     >;
     challengeId: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -445,6 +503,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       ['init', 'progress', 'disapproved', 'approved', 'withdrawal', 'retry']
     >;
     startDate: Schema.Attribute.DateTime;
+    step: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1142,6 +1201,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::broker-account.broker-account': ApiBrokerAccountBrokerAccount;
+      'api::challenge-condition.challenge-condition': ApiChallengeConditionChallengeCondition;
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
