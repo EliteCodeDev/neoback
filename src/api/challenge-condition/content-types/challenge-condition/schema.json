@@ -4,37 +4,15 @@
   "info": {
     "singularName": "challenge-condition",
     "pluralName": "challenge-conditions",
-    "displayName": "ChallengeCondition"
+    "displayName": "ChallengeCondition",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "phase": {
-      "type": "enumeration",
-      "enum": [
-        "FASE 0",
-        "FASE 1",
-        "FASE 2",
-        "FASE REAL"
-      ]
-    },
-    "step": {
-      "type": "integer",
-      "max": 1,
-      "min": 0
-    },
     "profit": {
-      "type": "decimal"
-    },
-    "max_loss_per_day": {
       "type": "decimal"
     },
     "max_loss_total": {
@@ -58,11 +36,17 @@
     "consistency": {
       "type": "decimal"
     },
-    "challenge": {
+    "max_loss_daily": {
+      "type": "decimal"
+    },
+    "phase_number": {
+      "type": "uid"
+    },
+    "product": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::challenge.challenge",
-      "inversedBy": "challenge_condition"
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "challenge_conditions"
     }
   }
 }

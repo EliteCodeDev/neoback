@@ -416,6 +416,7 @@ export interface ApiChallengeConditionChallengeCondition
   extends Struct.CollectionTypeSchema {
   collectionName: 'challenge_conditions';
   info: {
+    description: '';
     displayName: 'ChallengeCondition';
     pluralName: 'challenge-conditions';
     singularName: 'challenge-condition';
@@ -424,15 +425,10 @@ export interface ApiChallengeConditionChallengeCondition
     draftAndPublish: true;
   };
   attributes: {
-    challenge: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge.challenge'
-    >;
     consistency: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.String;
     leverage: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -440,24 +436,14 @@ export interface ApiChallengeConditionChallengeCondition
       'api::challenge-condition.challenge-condition'
     > &
       Schema.Attribute.Private;
-    max_loss_per_day: Schema.Attribute.Decimal;
+    max_loss_daily: Schema.Attribute.Decimal;
     max_loss_per_trade: Schema.Attribute.Decimal;
     max_loss_total: Schema.Attribute.Decimal;
     min_trading_days: Schema.Attribute.Decimal;
-    name: Schema.Attribute.String;
-    phase: Schema.Attribute.Enumeration<
-      ['FASE 0', 'FASE 1', 'FASE 2', 'FASE REAL']
-    >;
+    phase_number: Schema.Attribute.UID;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     profit: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    step: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 1;
-          min: 0;
-        },
-        number
-      >;
     trading_period: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -482,10 +468,6 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::broker-account.broker-account'
     >;
-    challenge_condition: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge-condition.challenge-condition'
-    >;
     challengeId: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -503,7 +485,6 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       ['init', 'progress', 'disapproved', 'approved', 'withdrawal', 'retry']
     >;
     startDate: Schema.Attribute.DateTime;
-    step: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -577,6 +558,45 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
+  info: {
+    description: '';
+    displayName: 'Product';
+    pluralName: 'products';
+    singularName: 'product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge_conditions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-condition.challenge-condition'
+    >;
+    challenge_tag: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product.product'
+    > &
+      Schema.Attribute.Private;
+    min_withdraw_amount: Schema.Attribute.Decimal;
+    name: Schema.Attribute.String;
+    num_steps: Schema.Attribute.Integer;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    withdraw_eligibility: Schema.Attribute.String;
+    woocommerce_product_id: Schema.Attribute.String;
   };
 }
 
@@ -1205,6 +1225,7 @@ declare module '@strapi/strapi' {
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
+      'api::product.product': ApiProductProduct;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
       'api::withdraw.withdraw': ApiWithdrawWithdraw;

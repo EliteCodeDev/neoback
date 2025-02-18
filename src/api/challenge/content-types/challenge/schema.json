@@ -46,15 +46,6 @@
     },
     "challengeId": {
       "type": "string"
-    },
-    "step": {
-      "type": "integer"
-    },
-    "challenge_condition": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::challenge-condition.challenge-condition",
-      "mappedBy": "challenge"
     }
   }
 }

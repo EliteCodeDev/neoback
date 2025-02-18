@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "woocommerce_product_id": {
+      "type": "string"
+    },
+    "min_withdraw_amount": {
+      "type": "decimal"
+    },
+    "withdraw_eligibility": {
+      "type": "string"
+    },
+    "challenge_tag": {
+      "type": "string"
+    },
+    "num_steps": {
+      "type": "integer"
+    },
+    "challenge_conditions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::challenge-condition.challenge-condition",
+      "mappedBy": "product"
+    }
+  }
+}
