@@ -429,7 +429,6 @@ export interface ApiChallengeConditionChallengeCondition
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    leverage: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -440,6 +439,7 @@ export interface ApiChallengeConditionChallengeCondition
     max_loss_per_trade: Schema.Attribute.Decimal;
     max_loss_total: Schema.Attribute.Decimal;
     min_trading_days: Schema.Attribute.Decimal;
+    name: Schema.Attribute.String;
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     profit: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;

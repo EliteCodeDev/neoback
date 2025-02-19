@@ -43,7 +43,7 @@
       "type": "string"
     },
     "weekend_trading": {
-      "type": "boolean"
+      "type": "decimal"
     }
   }
 }
