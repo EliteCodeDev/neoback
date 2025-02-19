@@ -21,17 +21,8 @@
     "woocommerce_product_id": {
       "type": "string"
     },
-    "min_withdraw_amount": {
-      "type": "decimal"
-    },
-    "withdraw_eligibility": {
-      "type": "string"
-    },
     "challenge_tag": {
       "type": "string"
-    },
-    "num_steps": {
-      "type": "integer"
     },
     "challenge_conditions": {
       "type": "relation",

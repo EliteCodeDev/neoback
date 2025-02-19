@@ -443,6 +443,7 @@ export interface ApiChallengeConditionChallengeCondition
     publishedAt: Schema.Attribute.DateTime;
     relativeDrawdownThreshold: Schema.Attribute.Decimal;
     relativeProfitThreshold: Schema.Attribute.Decimal;
+    step: Schema.Attribute.Integer;
     type: Schema.Attribute.Enumeration<['one', 'two', 'tree']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -585,15 +586,12 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
-    min_withdraw_amount: Schema.Attribute.Decimal;
     name: Schema.Attribute.String;
-    num_steps: Schema.Attribute.Integer;
     price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    withdraw_eligibility: Schema.Attribute.String;
     woocommerce_product_id: Schema.Attribute.String;
   };
 }
