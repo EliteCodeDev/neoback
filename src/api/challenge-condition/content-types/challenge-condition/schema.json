@@ -4,7 +4,7 @@
   "info": {
     "singularName": "challenge-condition",
     "pluralName": "challenge-conditions",
-    "displayName": "ChallengeCondition",
+    "displayName": "ProductStep",
     "description": ""
   },
   "options": {
@@ -21,16 +21,10 @@
     "max_loss_per_trade": {
       "type": "decimal"
     },
-    "leverage": {
-      "type": "decimal"
-    },
     "min_trading_days": {
       "type": "decimal"
     },
     "trading_period": {
-      "type": "decimal"
-    },
-    "weekend_trading": {
       "type": "decimal"
     },
     "consistency": {
@@ -44,6 +38,12 @@
       "relation": "manyToOne",
       "target": "api::product.product",
       "inversedBy": "challenge_conditions"
+    },
+    "name": {
+      "type": "string"
+    },
+    "weekend_trading": {
+      "type": "boolean"
     }
   }
 }

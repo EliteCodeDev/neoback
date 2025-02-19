@@ -417,7 +417,7 @@ export interface ApiChallengeConditionChallengeCondition
   collectionName: 'challenge_conditions';
   info: {
     description: '';
-    displayName: 'ChallengeCondition';
+    displayName: 'ProductStep';
     pluralName: 'challenge-conditions';
     singularName: 'challenge-condition';
   };
