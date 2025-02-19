@@ -12,37 +12,40 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "profit": {
-      "type": "decimal"
-    },
-    "max_loss_total": {
-      "type": "decimal"
-    },
-    "max_loss_per_trade": {
-      "type": "decimal"
-    },
-    "min_trading_days": {
-      "type": "decimal"
-    },
-    "trading_period": {
-      "type": "decimal"
-    },
-    "consistency": {
-      "type": "decimal"
-    },
-    "max_loss_daily": {
-      "type": "decimal"
-    },
     "product": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product.product",
       "inversedBy": "challenge_conditions"
     },
-    "name": {
-      "type": "string"
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "one",
+        "two",
+        "tree"
+      ]
     },
-    "weekend_trading": {
+    "period": {
+      "type": "enumeration",
+      "enum": [
+        "day",
+        "week",
+        "month",
+        "year",
+        "lifetime"
+      ]
+    },
+    "relativeDrawdownThreshold": {
+      "type": "decimal"
+    },
+    "absoluteDrawdownThreshold": {
+      "type": "decimal"
+    },
+    "relativeProfitThreshold": {
+      "type": "decimal"
+    },
+    "absoluteProfitThreshold": {
       "type": "decimal"
     }
   }

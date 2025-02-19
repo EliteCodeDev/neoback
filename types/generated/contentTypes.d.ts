@@ -425,7 +425,8 @@ export interface ApiChallengeConditionChallengeCondition
     draftAndPublish: false;
   };
   attributes: {
-    consistency: Schema.Attribute.Decimal;
+    absoluteDrawdownThreshold: Schema.Attribute.Decimal;
+    absoluteProfitThreshold: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -435,19 +436,17 @@ export interface ApiChallengeConditionChallengeCondition
       'api::challenge-condition.challenge-condition'
     > &
       Schema.Attribute.Private;
-    max_loss_daily: Schema.Attribute.Decimal;
-    max_loss_per_trade: Schema.Attribute.Decimal;
-    max_loss_total: Schema.Attribute.Decimal;
-    min_trading_days: Schema.Attribute.Decimal;
-    name: Schema.Attribute.String;
+    period: Schema.Attribute.Enumeration<
+      ['day', 'week', 'month', 'year', 'lifetime']
+    >;
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
-    profit: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    trading_period: Schema.Attribute.Decimal;
+    relativeDrawdownThreshold: Schema.Attribute.Decimal;
+    relativeProfitThreshold: Schema.Attribute.Decimal;
+    type: Schema.Attribute.Enumeration<['one', 'two', 'tree']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    weekend_trading: Schema.Attribute.Decimal;
   };
 }
 
