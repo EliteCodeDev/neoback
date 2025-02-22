@@ -3,7 +3,7 @@
   "collectionName": "challenges",
   "info": {
     "singularName": "challenge",
-    "pluralName": "challenge-users",
+    "pluralName": "challenges",
     "displayName": "ChallengeUser",
     "description": ""
   },
