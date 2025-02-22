@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "product": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::product.product",
-      "inversedBy": "challenge_conditions"
-    },
     "type": {
       "type": "enumeration",
       "enum": [
@@ -50,6 +44,19 @@
     },
     "step": {
       "type": "integer"
+    },
+    "productName": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "productName"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "product_step"
     }
   }
 }

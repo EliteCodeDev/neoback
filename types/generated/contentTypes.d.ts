@@ -439,10 +439,12 @@ export interface ApiChallengeConditionChallengeCondition
     period: Schema.Attribute.Enumeration<
       ['day', 'week', 'month', 'year', 'lifetime']
     >;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    productName: Schema.Attribute.String;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     relativeDrawdownThreshold: Schema.Attribute.Decimal;
     relativeProfitThreshold: Schema.Attribute.Decimal;
+    slug: Schema.Attribute.UID<'productName'>;
     step: Schema.Attribute.Integer;
     type: Schema.Attribute.Enumeration<['one', 'two', 'tree']>;
     updatedAt: Schema.Attribute.DateTime;
@@ -572,10 +574,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    challenge_conditions: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::challenge-condition.challenge-condition'
-    >;
     challenge_tag: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -588,6 +586,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     price: Schema.Attribute.Decimal;
+    product_step: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::challenge-condition.challenge-condition'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
