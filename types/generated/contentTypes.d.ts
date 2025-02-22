@@ -450,7 +450,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
   collectionName: 'challenges';
   info: {
     description: '';
-    displayName: 'ChallengeUser';
+    displayName: 'Challenge';
     pluralName: 'challenges';
     singularName: 'challenge';
   };
