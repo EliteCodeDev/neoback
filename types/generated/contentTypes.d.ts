@@ -514,11 +514,16 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     phase: Schema.Attribute.Integer;
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.Enumeration<
       ['init', 'progress', 'disapproved', 'approved', 'withdrawal', 'retry']
     >;
     startDate: Schema.Attribute.DateTime;
+    subcategory: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::subcategory.subcategory'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -607,9 +612,14 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    estado: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -669,6 +679,10 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
   };
   attributes: {
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

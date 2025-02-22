@@ -46,6 +46,18 @@
     },
     "challengeId": {
       "type": "string"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product",
+      "inversedBy": "challenge"
+    },
+    "subcategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subcategory.subcategory",
+      "inversedBy": "challenge"
     }
   }
 }
