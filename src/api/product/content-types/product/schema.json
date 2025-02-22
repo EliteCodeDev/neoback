@@ -24,11 +24,11 @@
     "challenge_tag": {
       "type": "string"
     },
-    "challenge_conditions": {
+    "product_step": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::challenge-condition.challenge-condition",
-      "mappedBy": "product"
+      "inversedBy": "products"
     }
   }
 }
