@@ -21,8 +21,20 @@
       "target": "api::category.category",
       "inversedBy": "subcategories"
     },
-    "type": {
-      "type": "json"
+    "MinimumTradingDays": {
+      "type": "integer"
+    },
+    "MaximumDailyLoss": {
+      "type": "integer"
+    },
+    "MaximumLoss": {
+      "type": "integer"
+    },
+    "ProfitTarget": {
+      "type": "integer"
+    },
+    "Leverage": {
+      "type": "string"
     }
   }
 }

@@ -20,6 +20,9 @@
       "relation": "oneToMany",
       "target": "api::subcategory.subcategory",
       "mappedBy": "category"
+    },
+    "type": {
+      "type": "json"
     }
   }
 }

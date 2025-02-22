@@ -439,6 +439,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::subcategory.subcategory'
     >;
+    type: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -671,15 +672,19 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Leverage: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::subcategory.subcategory'
     > &
       Schema.Attribute.Private;
+    MaximumDailyLoss: Schema.Attribute.Integer;
+    MaximumLoss: Schema.Attribute.Integer;
+    MinimumTradingDays: Schema.Attribute.Integer;
     name: Schema.Attribute.String;
+    ProfitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    type: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
