@@ -3,7 +3,7 @@
   "collectionName": "subcategories",
   "info": {
     "singularName": "subcategory",
-    "pluralName": "subcategories",
+    "pluralName": "challenge-sub-categories",
     "displayName": "ChallengeSubCategory",
     "description": ""
   },

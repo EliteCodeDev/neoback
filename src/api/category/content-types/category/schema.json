@@ -3,7 +3,7 @@
   "collectionName": "categories",
   "info": {
     "singularName": "category",
-    "pluralName": "categories",
+    "pluralName": "challenge-categories",
     "displayName": "ChallengeCategory",
     "description": ""
   },

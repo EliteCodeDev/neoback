@@ -417,7 +417,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   info: {
     description: '';
     displayName: 'ChallengeCategory';
-    pluralName: 'categories';
+    pluralName: 'challenge-categories';
     singularName: 'category';
   };
   options: {
@@ -451,7 +451,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
   info: {
     description: '';
     displayName: 'ChallengeUser';
-    pluralName: 'challenges';
+    pluralName: 'challenge-users';
     singularName: 'challenge';
   };
   options: {
@@ -565,7 +565,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   info: {
     description: '';
     displayName: 'ChallengeProduct';
-    pluralName: 'products';
+    pluralName: 'challenge-products';
     singularName: 'product';
   };
   options: {
@@ -631,7 +631,7 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
   info: {
     description: '';
     displayName: 'ChallengeSubCategory';
-    pluralName: 'subcategories';
+    pluralName: 'challenge-sub-categories';
     singularName: 'subcategory';
   };
   options: {

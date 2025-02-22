@@ -3,7 +3,7 @@
   "collectionName": "products",
   "info": {
     "singularName": "product",
-    "pluralName": "products",
+    "pluralName": "challenge-products",
     "displayName": "ChallengeProduct",
     "description": ""
   },
