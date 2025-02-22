@@ -4,7 +4,7 @@
   "info": {
     "singularName": "challenge",
     "pluralName": "challenges",
-    "displayName": "Challenge",
+    "displayName": "ChallengeUser",
     "description": ""
   },
   "options": {

@@ -416,7 +416,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
     description: '';
-    displayName: 'Category';
+    displayName: 'ChallengeCategory';
     pluralName: 'categories';
     singularName: 'category';
   };
@@ -446,51 +446,11 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiChallengeConditionChallengeCondition
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'challenge_conditions';
-  info: {
-    description: '';
-    displayName: 'ProductStep';
-    pluralName: 'challenge-conditions';
-    singularName: 'challenge-condition';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    absoluteDrawdownThreshold: Schema.Attribute.Decimal;
-    absoluteProfitThreshold: Schema.Attribute.Decimal;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::challenge-condition.challenge-condition'
-    > &
-      Schema.Attribute.Private;
-    period: Schema.Attribute.Enumeration<
-      ['day', 'week', 'month', 'year', 'lifetime']
-    >;
-    productName: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    relativeDrawdownThreshold: Schema.Attribute.Decimal;
-    relativeProfitThreshold: Schema.Attribute.Decimal;
-    slug: Schema.Attribute.UID<'productName'>;
-    step: Schema.Attribute.Integer;
-    type: Schema.Attribute.Enumeration<['one', 'two', 'tree']>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
   collectionName: 'challenges';
   info: {
     description: '';
-    displayName: 'Challenge';
+    displayName: 'ChallengeUser';
     pluralName: 'challenges';
     singularName: 'challenge';
   };
@@ -604,7 +564,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
     description: '';
-    displayName: 'Product';
+    displayName: 'ChallengeProduct';
     pluralName: 'products';
     singularName: 'product';
   };
@@ -670,7 +630,7 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
   collectionName: 'subcategories';
   info: {
     description: '';
-    displayName: 'Subcategory';
+    displayName: 'ChallengeSubCategory';
     pluralName: 'subcategories';
     singularName: 'subcategory';
   };
@@ -1295,7 +1255,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::broker-account.broker-account': ApiBrokerAccountBrokerAccount;
       'api::category.category': ApiCategoryCategory;
-      'api::challenge-condition.challenge-condition': ApiChallengeConditionChallengeCondition;
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
