@@ -14,21 +14,6 @@
   "attributes": {
     "name": {
       "type": "string"
-    },
-    "price": {
-      "type": "decimal"
-    },
-    "woocommerce_product_id": {
-      "type": "string"
-    },
-    "challenge_tag": {
-      "type": "string"
-    },
-    "product_step": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::challenge-condition.challenge-condition",
-      "inversedBy": "products"
     }
   }
 }

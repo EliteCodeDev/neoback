@@ -473,7 +473,6 @@ export interface ApiChallengeConditionChallengeCondition
       ['day', 'week', 'month', 'year', 'lifetime']
     >;
     productName: Schema.Attribute.String;
-    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     relativeDrawdownThreshold: Schema.Attribute.Decimal;
     relativeProfitThreshold: Schema.Attribute.Decimal;
@@ -607,7 +606,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    challenge_tag: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -618,16 +616,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    price: Schema.Attribute.Decimal;
-    product_step: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::challenge-condition.challenge-condition'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    woocommerce_product_id: Schema.Attribute.String;
   };
 }
 
@@ -666,6 +658,7 @@ export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
 export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
   collectionName: 'subcategories';
   info: {
+    description: '';
     displayName: 'Subcategory';
     pluralName: 'subcategories';
     singularName: 'subcategory';
@@ -686,6 +679,7 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
