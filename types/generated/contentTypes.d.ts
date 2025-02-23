@@ -576,6 +576,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::challenge.challenge'
     >;
+    challenge_sub_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::subcategory.subcategory'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -642,6 +646,10 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
     challenge: Schema.Attribute.Relation<
       'oneToOne',
       'api::challenge.challenge'
+    >;
+    challenge_products: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product.product'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

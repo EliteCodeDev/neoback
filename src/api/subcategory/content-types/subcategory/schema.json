@@ -41,6 +41,12 @@
       "relation": "oneToOne",
       "target": "api::challenge.challenge",
       "mappedBy": "subcategory"
+    },
+    "challenge_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "challenge_sub_category"
     }
   }
 }
