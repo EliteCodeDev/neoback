@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "challenge_subcategories",
+  "info": {
+    "singularName": "challenge-subcategory",
+    "pluralName": "challenge-subcategories",
+    "displayName": "ChallengeSubcategory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "challenge_relations_stage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::challenge-relations-stage.challenge-relations-stage",
+      "mappedBy": "challenge_subcategory"
+    },
+    "challenge_step": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::challenge-step.challenge-step",
+      "inversedBy": "challenge_subcategories"
+    }
+  }
+}

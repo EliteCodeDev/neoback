@@ -47,16 +47,10 @@
     "challengeId": {
       "type": "string"
     },
-    "product": {
+    "challenge_relations_stage": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::product.product",
-      "inversedBy": "challenge"
-    },
-    "subcategory": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::subcategory.subcategory",
+      "target": "api::challenge-relations-stage.challenge-relations-stage",
       "inversedBy": "challenge"
     }
   }

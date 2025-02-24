@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "challenge_stages",
+  "info": {
+    "singularName": "challenge-stage",
+    "pluralName": "challenge-stages",
+    "displayName": "ChallengeStage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "challenge_steps": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::challenge-step.challenge-step",
+      "inversedBy": "challenge_stages"
+    }
+  }
+}

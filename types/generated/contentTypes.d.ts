@@ -412,34 +412,189 @@ export interface ApiBrokerAccountBrokerAccount
   };
 }
 
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
+export interface ApiChallengeProductChallengeProduct
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'challenge_products';
   info: {
-    description: '';
-    displayName: 'ChallengeCategory';
-    pluralName: 'challenge-categories';
-    singularName: 'category';
+    displayName: 'ChallengeProduct';
+    pluralName: 'challenge-products';
+    singularName: 'challenge-product';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
+    challenge_relations_stages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge-relations-stage.challenge-relations-stage'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::category.category'
+      'api::challenge-product.challenge-product'
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    subcategories: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::subcategory.subcategory'
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiChallengeRelationsStageChallengeRelationsStage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'challenge_relations_stages';
+  info: {
+    description: '';
+    displayName: 'ChallengeRelationsStage';
+    pluralName: 'challenge-relations-stages';
+    singularName: 'challenge-relations-stage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
     >;
-    type: Schema.Attribute.JSON;
+    challenge_products: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge-product.challenge-product'
+    >;
+    challenge_subcategory: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge-subcategory.challenge-subcategory'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    leverage: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-relations-stage.challenge-relations-stage'
+    > &
+      Schema.Attribute.Private;
+    maximumDailyLoss: Schema.Attribute.Integer;
+    maximumLoss: Schema.Attribute.Integer;
+    minimumTradingDays: Schema.Attribute.Integer;
+    profitTarget: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiChallengeStageChallengeStage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'challenge_stages';
+  info: {
+    description: '';
+    displayName: 'ChallengeStage';
+    pluralName: 'challenge-stages';
+    singularName: 'challenge-stage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge_steps: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge-step.challenge-step'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-stage.challenge-stage'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiChallengeStepChallengeStep
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'challenge_steps';
+  info: {
+    description: '';
+    displayName: 'ChallengeStep';
+    pluralName: 'challenge-steps';
+    singularName: 'challenge-step';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge_stages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge-stage.challenge-stage'
+    >;
+    challenge_subcategories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-subcategory.challenge-subcategory'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-step.challenge-step'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiChallengeSubcategoryChallengeSubcategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'challenge_subcategories';
+  info: {
+    description: '';
+    displayName: 'ChallengeSubcategory';
+    pluralName: 'challenge-subcategories';
+    singularName: 'challenge-subcategory';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    challenge_relations_stage: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge-relations-stage.challenge-relations-stage'
+    >;
+    challenge_step: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::challenge-step.challenge-step'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge-subcategory.challenge-subcategory'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -462,6 +617,10 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::broker-account.broker-account'
     >;
+    challenge_relations_stage: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge-relations-stage.challenge-relations-stage'
+    >;
     challengeId: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -474,16 +633,11 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     phase: Schema.Attribute.Integer;
-    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.Enumeration<
       ['init', 'progress', 'disapproved', 'approved', 'withdrawal', 'retry']
     >;
     startDate: Schema.Attribute.DateTime;
-    subcategory: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::subcategory.subcategory'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -560,44 +714,6 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiProductProduct extends Struct.CollectionTypeSchema {
-  collectionName: 'products';
-  info: {
-    description: '';
-    displayName: 'ChallengeProduct';
-    pluralName: 'challenge-products';
-    singularName: 'product';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    challenge: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge.challenge'
-    >;
-    challenge_sub_category: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::subcategory.subcategory'
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    estado: Schema.Attribute.Boolean;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::product.product'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
   collectionName: 'socials';
   info: {
@@ -627,49 +743,6 @@ export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     url: Schema.Attribute.String;
-  };
-}
-
-export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
-  collectionName: 'subcategories';
-  info: {
-    description: '';
-    displayName: 'ChallengeSubCategory';
-    pluralName: 'challenge-sub-categories';
-    singularName: 'subcategory';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
-    challenge: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge.challenge'
-    >;
-    challenge_products: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::product.product'
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Leverage: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::subcategory.subcategory'
-    > &
-      Schema.Attribute.Private;
-    MaximumDailyLoss: Schema.Attribute.Integer;
-    MaximumLoss: Schema.Attribute.Integer;
-    MinimumTradingDays: Schema.Attribute.Integer;
-    name: Schema.Attribute.String;
-    ProfitTarget: Schema.Attribute.Integer;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
   };
 }
 
@@ -1262,13 +1335,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::broker-account.broker-account': ApiBrokerAccountBrokerAccount;
-      'api::category.category': ApiCategoryCategory;
+      'api::challenge-product.challenge-product': ApiChallengeProductChallengeProduct;
+      'api::challenge-relations-stage.challenge-relations-stage': ApiChallengeRelationsStageChallengeRelationsStage;
+      'api::challenge-stage.challenge-stage': ApiChallengeStageChallengeStage;
+      'api::challenge-step.challenge-step': ApiChallengeStepChallengeStep;
+      'api::challenge-subcategory.challenge-subcategory': ApiChallengeSubcategoryChallengeSubcategory;
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
-      'api::product.product': ApiProductProduct;
       'api::social.social': ApiSocialSocial;
-      'api::subcategory.subcategory': ApiSubcategorySubcategory;
       'api::support.support': ApiSupportSupport;
       'api::withdraw.withdraw': ApiWithdrawWithdraw;
       'plugin::content-releases.release': PluginContentReleasesRelease;
