@@ -4,10 +4,11 @@
   "info": {
     "singularName": "challenge-product",
     "pluralName": "challenge-products",
-    "displayName": "ChallengeProduct"
+    "displayName": "ChallengeProduct",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {

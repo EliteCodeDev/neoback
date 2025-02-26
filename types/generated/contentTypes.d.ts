@@ -416,12 +416,13 @@ export interface ApiChallengeProductChallengeProduct
   extends Struct.CollectionTypeSchema {
   collectionName: 'challenge_products';
   info: {
+    description: '';
     displayName: 'ChallengeProduct';
     pluralName: 'challenge-products';
     singularName: 'challenge-product';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     challenge_relations_stages: Schema.Attribute.Relation<
@@ -455,7 +456,7 @@ export interface ApiChallengeRelationsStageChallengeRelationsStage
     singularName: 'challenge-relations-stage';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     challenge: Schema.Attribute.Relation<
@@ -501,7 +502,7 @@ export interface ApiChallengeStageChallengeStage
     singularName: 'challenge-stage';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     challenge_steps: Schema.Attribute.Relation<
@@ -535,7 +536,7 @@ export interface ApiChallengeStepChallengeStep
     singularName: 'challenge-step';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     challenge_stages: Schema.Attribute.Relation<
@@ -573,7 +574,7 @@ export interface ApiChallengeSubcategoryChallengeSubcategory
     singularName: 'challenge-subcategory';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     challenge_relations_stage: Schema.Attribute.Relation<
