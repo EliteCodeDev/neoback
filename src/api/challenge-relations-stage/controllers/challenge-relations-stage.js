@@ -36,86 +36,109 @@ module.exports = createCoreController('api::challenge-relations-stage.challenge-
       }
       const existingStage = stages[0];
 
-      // 2) Manejar la subcategoría (1:1) usando documentId
+      // 2) Manejar la subcategoría (1:1)
       let subcategoryId = null;
-      if (challenge_subcategory && challenge_subcategory.documentId) {
-        const subcategories = await strapi.entityService.findMany(
-          'api::challenge-subcategory.challenge-subcategory',
-          {
-            filters: { documentId: { $eq: challenge_subcategory.documentId } },
-            limit: 1,
-          }
-        );
-
-        if (subcategories.length) {
-          // Actualizar la subcategoría existente
-          const updatedSubcat = await strapi.entityService.update(
-            'api::challenge-subcategory.challenge-subcategory',
-            subcategories[0].id,
-            {
-              data: {
-                name: challenge_subcategory.name,
-                // otros campos...
-                publishedAt: new Date().toISOString(), // Forzar "Published"
-              },
-            }
-          );
-          subcategoryId = updatedSubcat.id;
-        } else {
-          // Crear una nueva subcategoría
-          const newSubcat = await strapi.entityService.create(
+      if (challenge_subcategory) {
+        if (challenge_subcategory.documentId) {
+          // Caso 1: Tiene documentId, buscar y actualizar o crear
+          const subcategories = await strapi.entityService.findMany(
             'api::challenge-subcategory.challenge-subcategory',
             {
-              data: {
-                documentId: challenge_subcategory.documentId,
-                name: challenge_subcategory.name,
-                // otros campos...
-                publishedAt: new Date().toISOString(), // Forzar "Published"
-              },
-            }
-          );
-          subcategoryId = newSubcat.id;
-        }
-      }
-
-      // 3) Manejar los productos (N:M) usando documentId
-      let productIDs = [];
-      if (Array.isArray(challenge_products)) {
-        for (const product of challenge_products) {
-          if (!product.documentId) continue;
-
-          const products = await strapi.entityService.findMany(
-            'api::challenge-product.challenge-product',
-            {
-              filters: { documentId: { $eq: product.documentId } },
+              filters: { documentId: { $eq: challenge_subcategory.documentId } },
               limit: 1,
             }
           );
 
-          if (products.length) {
-            // Actualizar el producto existente
-            const updatedProd = await strapi.entityService.update(
-              'api::challenge-product.challenge-product',
-              products[0].id,
+          if (subcategories.length) {
+            // Actualizar la subcategoría existente
+            const updatedSubcat = await strapi.entityService.update(
+              'api::challenge-subcategory.challenge-subcategory',
+              subcategories[0].id,
               {
                 data: {
-                  name: product.name,
-                  // otros campos...
+                  name: challenge_subcategory.name,
                   publishedAt: new Date().toISOString(), // Forzar "Published"
                 },
               }
             );
-            productIDs.push(updatedProd.id);
+            subcategoryId = updatedSubcat.id;
           } else {
-            // Crear un nuevo producto
+            // Crear una nueva subcategoría con el documentId proporcionado
+            const newSubcat = await strapi.entityService.create(
+              'api::challenge-subcategory.challenge-subcategory',
+              {
+                data: {
+                  documentId: challenge_subcategory.documentId,
+                  name: challenge_subcategory.name,
+                  publishedAt: new Date().toISOString(), // Forzar "Published"
+                },
+              }
+            );
+            subcategoryId = newSubcat.id;
+          }
+        } else if (challenge_subcategory.name) {
+          // Caso 2: Solo tiene name, crear nueva subcategoría sin documentId
+          const newSubcat = await strapi.entityService.create(
+            'api::challenge-subcategory.challenge-subcategory',
+            {
+              data: {
+                name: challenge_subcategory.name,
+                publishedAt: new Date().toISOString(), // Forzar "Published"
+                // documentId será generado automáticamente por Strapi
+              },
+            }
+          );
+          subcategoryId = newSubcat.id;
+        } else {
+          return ctx.badRequest('La subcategoría debe tener al menos un documentId o un name.');
+        }
+      }
+
+      // 3) Manejar los productos (N:M)
+      let productIDs = [];
+      if (Array.isArray(challenge_products)) {
+        for (const product of challenge_products) {
+          if (product.documentId) {
+            const products = await strapi.entityService.findMany(
+              'api::challenge-product.challenge-product',
+              {
+                filters: { documentId: { $eq: product.documentId } },
+                limit: 1,
+              }
+            );
+
+            if (products.length) {
+              const updatedProd = await strapi.entityService.update(
+                'api::challenge-product.challenge-product',
+                products[0].id,
+                {
+                  data: {
+                    name: product.name,
+                    publishedAt: new Date().toISOString(),
+                  },
+                }
+              );
+              productIDs.push(updatedProd.id);
+            } else {
+              const newProd = await strapi.entityService.create(
+                'api::challenge-product.challenge-product',
+                {
+                  data: {
+                    documentId: product.documentId,
+                    name: product.name,
+                    publishedAt: new Date().toISOString(),
+                  },
+                }
+              );
+              productIDs.push(newProd.id);
+            }
+          } else if (product.name) {
             const newProd = await strapi.entityService.create(
               'api::challenge-product.challenge-product',
               {
                 data: {
-                  documentId: product.documentId,
                   name: product.name,
-                  // otros campos...
-                  publishedAt: new Date().toISOString(), // Forzar "Published"
+                  publishedAt: new Date().toISOString(),
                 },
               }
             );
@@ -137,8 +160,7 @@ module.exports = createCoreController('api::challenge-relations-stage.challenge-
             leverage,
             challenge_subcategory: subcategoryId,
             challenge_products: productIDs,
-            // Forzar "Published"
-            publishedAt: new Date().toISOString(),
+            publishedAt: new Date().toISOString(), // Forzar "Published"
           },
           populate: ['challenge_subcategory', 'challenge_products'],
         }
