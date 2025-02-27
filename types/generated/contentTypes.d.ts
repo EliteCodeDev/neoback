@@ -591,18 +591,13 @@ export interface ApiChallengeSubcategoryChallengeSubcategory
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    leverage: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge-subcategory.challenge-subcategory'
     > &
       Schema.Attribute.Private;
-    maximumDailyLoss: Schema.Attribute.Integer;
-    maximumLoss: Schema.Attribute.Integer;
-    minimumTradingDays: Schema.Attribute.Integer;
     name: Schema.Attribute.String;
-    profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

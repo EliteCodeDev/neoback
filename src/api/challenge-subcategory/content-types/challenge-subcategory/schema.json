@@ -15,21 +15,6 @@
     "name": {
       "type": "string"
     },
-    "minimumTradingDays": {
-      "type": "integer"
-    },
-    "maximumDailyLoss": {
-      "type": "integer"
-    },
-    "maximumLoss": {
-      "type": "integer"
-    },
-    "profitTarget": {
-      "type": "integer"
-    },
-    "leverage": {
-      "type": "integer"
-    },
     "challenge_relation": {
       "type": "relation",
       "relation": "manyToOne",
