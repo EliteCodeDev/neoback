@@ -15,11 +15,11 @@
     "name": {
       "type": "string"
     },
-    "challenge_relation": {
+    "challenge_relations": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::challenge-relation.challenge-relation",
-      "inversedBy": "challenge_subcategories"
+      "mappedBy": "challenge_subcategory"
     }
   }
 }
