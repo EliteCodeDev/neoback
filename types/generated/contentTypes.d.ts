@@ -714,6 +714,36 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProvisionalProductProvisionalProduct
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'provisional_products';
+  info: {
+    displayName: 'ProvisionalProduct';
+    pluralName: 'provisional-products';
+    singularName: 'provisional-product';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::provisional-product.provisional-product'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    precio: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
   collectionName: 'socials';
   info: {
@@ -775,6 +805,87 @@ export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     url: Schema.Attribute.String;
+  };
+}
+
+export interface ApiTicketAssignamentTicketAssignament
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ticket_assignaments';
+  info: {
+    description: '';
+    displayName: 'TicketAssignament';
+    pluralName: 'ticket-assignaments';
+    singularName: 'ticket-assignament';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    estado: Schema.Attribute.Enumeration<['disponible', 'usado', 'expirado']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'disponible'>;
+    fechaAsignacion: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    fechaExpiracionAsignacion: Schema.Attribute.DateTime &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ticket-assignament.ticket-assignament'
+    > &
+      Schema.Attribute.Private;
+    porcentajeResultado: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    resultado: Schema.Attribute.String & Schema.Attribute.Required;
+    ticket: Schema.Attribute.Relation<'manyToOne', 'api::ticket.ticket'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
+  collectionName: 'tickets';
+  info: {
+    description: '';
+    displayName: 'Ticket';
+    pluralName: 'tickets';
+    singularName: 'ticket';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    duracionAsignacion: Schema.Attribute.Integer & Schema.Attribute.Required;
+    expiracion: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    habilitado: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ticket.ticket'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    porcentaje: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    ticket_assignaments: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ticket-assignament.ticket-assignament'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1311,6 +1422,10 @@ export interface PluginUsersPermissionsUser
       ['pending', 'approved', 'rejected']
     >;
     street: Schema.Attribute.String;
+    ticket_assignaments: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ticket-assignament.ticket-assignament'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1343,8 +1458,11 @@ declare module '@strapi/strapi' {
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
+      'api::provisional-product.provisional-product': ApiProvisionalProductProvisionalProduct;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
+      'api::ticket-assignament.ticket-assignament': ApiTicketAssignamentTicketAssignament;
+      'api::ticket.ticket': ApiTicketTicket;
       'api::withdraw.withdraw': ApiWithdrawWithdraw;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

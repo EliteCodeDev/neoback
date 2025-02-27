@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "singularName": "ticket",
+    "pluralName": "tickets",
+    "displayName": "Ticket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "habilitado": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "expiracion": {
+      "type": "datetime",
+      "required": true
+    },
+    "ticket_assignaments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ticket-assignament.ticket-assignament",
+      "mappedBy": "ticket"
+    },
+    "porcentaje": {
+      "type": "decimal",
+      "required": true
+    },
+    "duracionAsignacion": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}
