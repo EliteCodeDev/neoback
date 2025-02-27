@@ -454,6 +454,7 @@ export interface ApiChallengeRelationChallengeRelation
   extends Struct.CollectionTypeSchema {
   collectionName: 'challenge_relations';
   info: {
+    description: '';
     displayName: 'ChallengeRelation';
     pluralName: 'challenge-relations';
     singularName: 'challenge-relation';

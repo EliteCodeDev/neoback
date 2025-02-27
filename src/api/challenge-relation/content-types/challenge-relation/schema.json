@@ -4,7 +4,8 @@
   "info": {
     "singularName": "challenge-relation",
     "pluralName": "challenge-relations",
-    "displayName": "ChallengeRelation"
+    "displayName": "ChallengeRelation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
