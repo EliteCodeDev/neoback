@@ -387,6 +387,10 @@ export interface ApiBrokerAccountBrokerAccount
       'oneToOne',
       'api::challenge.challenge'
     >;
+    challenge_subcategory: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge-subcategory.challenge-subcategory'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -425,9 +429,9 @@ export interface ApiChallengeProductChallengeProduct
     draftAndPublish: false;
   };
   attributes: {
-    challenge_relations_stages: Schema.Attribute.Relation<
+    challenge_subcategories: Schema.Attribute.Relation<
       'manyToMany',
-      'api::challenge-relations-stage.challenge-relations-stage'
+      'api::challenge-subcategory.challenge-subcategory'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -439,52 +443,6 @@ export interface ApiChallengeProductChallengeProduct
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiChallengeRelationsStageChallengeRelationsStage
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'challenge_relations_stages';
-  info: {
-    description: '';
-    displayName: 'ChallengeRelationsStage';
-    pluralName: 'challenge-relations-stages';
-    singularName: 'challenge-relations-stage';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    challenge: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge.challenge'
-    >;
-    challenge_products: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::challenge-product.challenge-product'
-    >;
-    challenge_subcategory: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge-subcategory.challenge-subcategory'
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    leverage: Schema.Attribute.Integer;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::challenge-relations-stage.challenge-relations-stage'
-    > &
-      Schema.Attribute.Private;
-    maximumDailyLoss: Schema.Attribute.Integer;
-    maximumLoss: Schema.Attribute.Integer;
-    minimumTradingDays: Schema.Attribute.Integer;
-    profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -577,9 +535,13 @@ export interface ApiChallengeSubcategoryChallengeSubcategory
     draftAndPublish: false;
   };
   attributes: {
-    challenge_relations_stage: Schema.Attribute.Relation<
+    broker_account: Schema.Attribute.Relation<
       'oneToOne',
-      'api::challenge-relations-stage.challenge-relations-stage'
+      'api::broker-account.broker-account'
+    >;
+    challenge_products: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge-product.challenge-product'
     >;
     challenge_step: Schema.Attribute.Relation<
       'manyToOne',
@@ -588,13 +550,18 @@ export interface ApiChallengeSubcategoryChallengeSubcategory
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    leverage: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge-subcategory.challenge-subcategory'
     > &
       Schema.Attribute.Private;
+    maximumDailyLoss: Schema.Attribute.Integer;
+    maximumLoss: Schema.Attribute.Integer;
+    minimumTradingDays: Schema.Attribute.Integer;
     name: Schema.Attribute.String;
+    profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -617,10 +584,6 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     broker_account: Schema.Attribute.Relation<
       'oneToOne',
       'api::broker-account.broker-account'
-    >;
-    challenge_relations_stage: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge-relations-stage.challenge-relations-stage'
     >;
     challengeId: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -1337,7 +1300,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::broker-account.broker-account': ApiBrokerAccountBrokerAccount;
       'api::challenge-product.challenge-product': ApiChallengeProductChallengeProduct;
-      'api::challenge-relations-stage.challenge-relations-stage': ApiChallengeRelationsStageChallengeRelationsStage;
       'api::challenge-stage.challenge-stage': ApiChallengeStageChallengeStage;
       'api::challenge-step.challenge-step': ApiChallengeStepChallengeStep;
       'api::challenge-subcategory.challenge-subcategory': ApiChallengeSubcategoryChallengeSubcategory;

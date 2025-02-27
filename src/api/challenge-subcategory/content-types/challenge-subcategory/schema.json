@@ -15,17 +15,38 @@
     "name": {
       "type": "string"
     },
-    "challenge_relations_stage": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::challenge-relations-stage.challenge-relations-stage",
-      "mappedBy": "challenge_subcategory"
-    },
     "challenge_step": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::challenge-step.challenge-step",
       "inversedBy": "challenge_subcategories"
+    },
+    "minimumTradingDays": {
+      "type": "integer"
+    },
+    "maximumDailyLoss": {
+      "type": "integer"
+    },
+    "maximumLoss": {
+      "type": "integer"
+    },
+    "profitTarget": {
+      "type": "integer"
+    },
+    "leverage": {
+      "type": "integer"
+    },
+    "challenge_products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::challenge-product.challenge-product",
+      "inversedBy": "challenge_subcategories"
+    },
+    "broker_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::broker-account.broker-account",
+      "inversedBy": "challenge_subcategory"
     }
   }
 }
