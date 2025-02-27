@@ -18,17 +18,17 @@
       "target": "api::challenge-product.challenge-product",
       "inversedBy": "challenge_relations"
     },
-    "challenge_steps": {
+    "challenge_step": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::challenge-step.challenge-step",
-      "mappedBy": "challenge_relation"
+      "inversedBy": "challenge_relations"
     },
-    "challenge_subcategories": {
+    "challenge_subcategory": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::challenge-subcategory.challenge-subcategory",
-      "mappedBy": "challenge_relation"
+      "inversedBy": "challenge_relations"
     },
     "minimumTradingDays": {
       "type": "integer"
