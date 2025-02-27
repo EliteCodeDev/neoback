@@ -50,6 +50,12 @@
       "relation": "oneToOne",
       "target": "api::broker-account.broker-account",
       "inversedBy": "challenge_relation"
+    },
+    "challenge_stages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::challenge-stage.challenge-stage",
+      "inversedBy": "challenge_relations"
     }
   }
 }

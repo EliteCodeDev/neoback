@@ -471,6 +471,10 @@ export interface ApiChallengeRelationChallengeRelation
       'manyToMany',
       'api::challenge-product.challenge-product'
     >;
+    challenge_stages: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::challenge-stage.challenge-stage'
+    >;
     challenge_step: Schema.Attribute.Relation<
       'manyToOne',
       'api::challenge-step.challenge-step'
@@ -513,9 +517,9 @@ export interface ApiChallengeStageChallengeStage
     draftAndPublish: false;
   };
   attributes: {
-    challenge_steps: Schema.Attribute.Relation<
+    challenge_relations: Schema.Attribute.Relation<
       'manyToMany',
-      'api::challenge-step.challenge-step'
+      'api::challenge-relation.challenge-relation'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -550,10 +554,6 @@ export interface ApiChallengeStepChallengeStep
     challenge_relations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge-relation.challenge-relation'
-    >;
-    challenge_stages: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::challenge-stage.challenge-stage'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

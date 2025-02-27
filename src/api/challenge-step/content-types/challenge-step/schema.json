@@ -15,12 +15,6 @@
     "name": {
       "type": "string"
     },
-    "challenge_stages": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::challenge-stage.challenge-stage",
-      "mappedBy": "challenge_steps"
-    },
     "challenge_relations": {
       "type": "relation",
       "relation": "oneToMany",
