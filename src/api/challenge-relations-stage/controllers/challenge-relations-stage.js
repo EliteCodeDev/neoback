@@ -36,7 +36,7 @@ module.exports = createCoreController('api::challenge-relations-stage.challenge-
       }
       const existingStage = stages[0];
 
-      // 2) Manejar la subcategoría (1:1) usando documentId
+      // 2) Manejar la subcategoría (relación 1:1)
       let subcategoryId = null;
       if (challenge_subcategory && challenge_subcategory.documentId) {
         const subcategories = await strapi.entityService.findMany(
@@ -46,85 +46,37 @@ module.exports = createCoreController('api::challenge-relations-stage.challenge-
             limit: 1,
           }
         );
-
         if (subcategories.length) {
-          // Actualizar la subcategoría existente
-          const updatedSubcat = await strapi.entityService.update(
-            'api::challenge-subcategory.challenge-subcategory',
-            subcategories[0].id,
-            {
-              data: {
-                name: challenge_subcategory.name,
-                // otros campos...
-                publishedAt: new Date().toISOString(), // Forzar "Published"
-              },
-            }
-          );
-          subcategoryId = updatedSubcat.id;
+          subcategoryId = subcategories[0].id;
         } else {
-          // Crear una nueva subcategoría
-          const newSubcat = await strapi.entityService.create(
-            'api::challenge-subcategory.challenge-subcategory',
-            {
-              data: {
-                documentId: challenge_subcategory.documentId,
-                name: challenge_subcategory.name,
-                // otros campos...
-                publishedAt: new Date().toISOString(), // Forzar "Published"
-              },
-            }
-          );
-          subcategoryId = newSubcat.id;
+          return ctx.badRequest(`No se encontró ChallengeSubcategory con documentId = ${challenge_subcategory.documentId}`);
         }
       }
+      // Si no se proporciona challenge_subcategory o es null, subcategoryId será null, desvinculando la relación
 
-      // 3) Manejar los productos (N:M) usando documentId
+      // 3) Manejar los productos (relación N:M)
       let productIDs = [];
       if (Array.isArray(challenge_products)) {
         for (const product of challenge_products) {
-          if (!product.documentId) continue;
-
-          const products = await strapi.entityService.findMany(
-            'api::challenge-product.challenge-product',
-            {
-              filters: { documentId: { $eq: product.documentId } },
-              limit: 1,
+          if (product.documentId) {
+            const products = await strapi.entityService.findMany(
+              'api::challenge-product.challenge-product',
+              {
+                filters: { documentId: { $eq: product.documentId } },
+                limit: 1,
+              }
+            );
+            if (products.length) {
+              productIDs.push(products[0].id);
+            } else {
+              return ctx.badRequest(`No se encontró ChallengeProduct con documentId = ${product.documentId}`);
             }
-          );
-
-          if (products.length) {
-            // Actualizar el producto existente
-            const updatedProd = await strapi.entityService.update(
-              'api::challenge-product.challenge-product',
-              products[0].id,
-              {
-                data: {
-                  name: product.name,
-                  // otros campos...
-                  publishedAt: new Date().toISOString(), // Forzar "Published"
-                },
-              }
-            );
-            productIDs.push(updatedProd.id);
-          } else {
-            // Crear un nuevo producto
-            const newProd = await strapi.entityService.create(
-              'api::challenge-product.challenge-product',
-              {
-                data: {
-                  documentId: product.documentId,
-                  name: product.name,
-                  // otros campos...
-                  publishedAt: new Date().toISOString(), // Forzar "Published"
-                },
-              }
-            );
-            productIDs.push(newProd.id);
           }
         }
       }
+      // Si no se proporcionan productos, productIDs será un array vacío, desvinculando todos los productos previos
 
-      // 4) Actualizar ChallengeRelationsStage y forzar su publicación
+      // 4) Actualizar solo ChallengeRelationsStage con las relaciones
       const updatedStage = await strapi.entityService.update(
         'api::challenge-relations-stage.challenge-relations-stage',
         existingStage.id,
@@ -137,8 +89,7 @@ module.exports = createCoreController('api::challenge-relations-stage.challenge-
             leverage,
             challenge_subcategory: subcategoryId,
             challenge_products: productIDs,
-            // Forzar "Published"
-            publishedAt: new Date().toISOString(),
+            publishedAt: new Date().toISOString(), // Forzar "Published"
           },
           populate: ['challenge_subcategory', 'challenge_products'],
         }
