@@ -117,6 +117,12 @@
     "statusSign": {
       "type": "boolean",
       "default": false
+    },
+    "ticket_assignaments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ticket-assignament.ticket-assignament",
+      "mappedBy": "user"
     }
   }
 }

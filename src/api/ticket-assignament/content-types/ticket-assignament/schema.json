@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ticket_assignaments",
+  "info": {
+    "singularName": "ticket-assignament",
+    "pluralName": "ticket-assignaments",
+    "displayName": "TicketAssignament",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ticket": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ticket.ticket",
+      "inversedBy": "ticket_assignaments"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "disponible",
+        "usado",
+        "expirado"
+      ],
+      "default": "disponible",
+      "required": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "ticket_assignaments"
+    },
+    "fechaAsignacion": {
+      "type": "datetime",
+      "required": true
+    },
+    "fechaExpiracionAsignacion": {
+      "type": "datetime",
+      "required": true
+    },
+    "resultado": {
+      "type": "string",
+      "required": true
+    },
+    "porcentajeResultado": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}
