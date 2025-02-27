@@ -15,17 +15,17 @@
     "name": {
       "type": "string"
     },
-    "challenge_subcategories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::challenge-subcategory.challenge-subcategory",
-      "mappedBy": "challenge_step"
-    },
     "challenge_stages": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::challenge-stage.challenge-stage",
       "mappedBy": "challenge_steps"
+    },
+    "challenge_relation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::challenge-relation.challenge-relation",
+      "inversedBy": "challenge_steps"
     }
   }
 }

@@ -15,10 +15,10 @@
     "name": {
       "type": "string"
     },
-    "challenge_subcategories": {
+    "challenge_relations": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::challenge-subcategory.challenge-subcategory",
+      "target": "api::challenge-relation.challenge-relation",
       "mappedBy": "challenge_products"
     }
   }

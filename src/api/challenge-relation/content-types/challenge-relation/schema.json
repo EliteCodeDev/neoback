@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "challenge_relations",
+  "info": {
+    "singularName": "challenge-relation",
+    "pluralName": "challenge-relations",
+    "displayName": "ChallengeRelation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "challenge_products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::challenge-product.challenge-product",
+      "inversedBy": "challenge_relations"
+    },
+    "challenge_steps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::challenge-step.challenge-step",
+      "mappedBy": "challenge_relation"
+    },
+    "challenge_subcategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::challenge-subcategory.challenge-subcategory",
+      "mappedBy": "challenge_relation"
+    },
+    "minimumTradingDays": {
+      "type": "integer"
+    },
+    "maximumDailyLoss": {
+      "type": "integer"
+    },
+    "maximumLoss": {
+      "type": "integer"
+    },
+    "profitTarget": {
+      "type": "integer"
+    },
+    "leverage": {
+      "type": "integer"
+    },
+    "broker_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::broker-account.broker-account",
+      "inversedBy": "challenge_relation"
+    }
+  }
+}
