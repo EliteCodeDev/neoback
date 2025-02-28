@@ -19,6 +19,15 @@ module.exports = {
         policies: [],
         middlewares: [],
       }
-    }
+    },
+    {
+      method: 'GET',
+      path: '/challenge-steps/get-all-data',
+      handler: 'challenge-step.getAllData',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

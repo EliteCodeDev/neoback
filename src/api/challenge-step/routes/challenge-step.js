@@ -24,5 +24,5 @@ module.exports = createCoreRouter('api::challenge-step.challenge-step', {
       middlewares: [],
     },
   },
-  routes: require('./custom-routes').routes, // Importa las rutas personalizadas
+  routes: require('./a-custom-routes').routes, // Importa las rutas personalizadas
 });
