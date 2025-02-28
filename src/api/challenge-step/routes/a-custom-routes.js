@@ -29,5 +29,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/challenge-steps/:documentId/get-all-data',
+      handler: 'challenge-step.getAllData',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

@@ -44,11 +44,11 @@
     },
     "resultado": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "porcentajeResultado": {
       "type": "decimal",
-      "required": true
+      "required": false
     }
   }
 }

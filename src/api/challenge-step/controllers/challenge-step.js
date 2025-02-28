@@ -105,15 +105,12 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
   },
   async updateWithRelations(ctx) {
     try {
-      // Obtenemos el documentId del step a actualizar desde los parámetros de la URL
       console.log('Params:', ctx.params);
       const { documentId } = ctx.params;
-      // Extraemos la data enviada en el body (nombre, stages y subcategories)
       console.log('Data recibida:', ctx.request.body);
       const { name, stages = [], subcategories = [] } = ctx.request.body;
 
-
-      // Buscamos el step existente usando el documentId (se asume que es un campo único)
+      // Buscamos el step existente usando su documentId
       const stepFound = await strapi
         .service('api::challenge-step.challenge-step')
         .find({
@@ -128,121 +125,188 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
       const stepRecord = stepFound.results[0];
       console.log('Step encontrado:', stepRecord);
 
-      // Arrays para almacenar los IDs de los stages y subcategorías que se relacionarán al step
+      // Procesamos los stages enviados y construimos un array de stageIds (usando el id interno)
       const stageIds = [];
-      const subcategoryIds = [];
-
-      // Procesamos los stages enviados
       for (const stage of stages) {
         let stageRecord;
         if (stage.documentId) {
-          console.log('tiene document:', stage.documentId);
-          // Buscamos un stage existente filtrando por documentId
+          console.log('Stage tiene document:', stage.documentId);
           const foundStages = await strapi
             .service('api::challenge-stage.challenge-stage')
             .find({
               filters: { documentId: stage.documentId }
             });
-
           if (foundStages && foundStages.results && foundStages.results.length > 0) {
             stageRecord = foundStages.results[0];
             console.log('Stage encontrado:', stageRecord);
-            // // Opcional: actualizar el stage con la data enviada (por ejemplo, el nombre)
-            // stageRecord = await strapi
-            //   .service('api::challenge-stage.challenge-stage')
-            //   .update(stageRecord.id, { data: stage });
           } else {
-            // Si no existe, se crea el stage
             console.log('Stage nuevo:', stage);
             stageRecord = await strapi
               .service('api::challenge-stage.challenge-stage')
               .create({ data: stage });
+            console.log('Stage creado:', stageRecord);
           }
         } else {
-          // Si no se envía documentid, se asume que es un stage nuevo y se crea
-          console.log('Stage nuevo1:',
-            stage);
+          console.log('Stage nuevo (sin documentId):', stage);
           stageRecord = await strapi
             .service('api::challenge-stage.challenge-stage')
             .create({ data: stage });
+          console.log('Stage creado:', stageRecord);
         }
-        stageIds.push(stageRecord.id);
+        stageIds.push(stageRecord.documentId);
       }
+      console.log('Stage IDs procesados:', stageIds);
 
-      // Procesamos las subcategorías de forma similar
+      // Actualizamos el challenge-step únicamente con el nuevo nombre
+      const updatedStep = await strapi
+        .service('api::challenge-step.challenge-step')
+        .update(stepRecord.documentId, { data: { name } });
+      console.log('Challenge Step actualizado:', updatedStep);
+
+      // Procesamos las subcategorías: buscamos o creamos y recolectamos sus ids (usando id interno)
+      const newSubcatIds = [];
+      const subcatRecords = [];
       for (const subcat of subcategories) {
-        console.log('Subcat:', subcat);
         let subcatRecord;
         if (subcat.documentId) {
-          console.log('tiene document:', subcat.documentId);
+          console.log('Subcategoría tiene document:', subcat.documentId);
           const foundSubcats = await strapi
             .service('api::challenge-subcategory.challenge-subcategory')
             .find({
               filters: { documentId: subcat.documentId }
             });
-
           if (foundSubcats && foundSubcats.results && foundSubcats.results.length > 0) {
             subcatRecord = foundSubcats.results[0];
-            console.log('Subcat encontrado:', subcatRecord);
-            // // Opcional: actualizar la subcategoría con la data enviada
-            // subcatRecord = await strapi
-            //   .service('api::challenge-subcategory.challenge-subcategory')
-            //   .update(subcatRecord.id, { data: subcat });
+            console.log('Subcategoría encontrada:', subcatRecord);
           } else {
-            console.log('Subcat nuevo:', subcat);
+            console.log('Subcategoría nueva:', subcat);
             subcatRecord = await strapi
               .service('api::challenge-subcategory.challenge-subcategory')
               .create({ data: subcat });
+            console.log('Subcategoría creada:', subcatRecord);
           }
         } else {
-          console.log('Subcat nuev1:', subcat);
+          console.log('Subcategoría nueva (sin documentId):', subcat);
           subcatRecord = await strapi
             .service('api::challenge-subcategory.challenge-subcategory')
             .create({ data: subcat });
-          console.log('Subcat nuevo2:', subcatRecord
-          );
+          console.log('Subcategoría creada:', subcatRecord);
         }
-        subcategoryIds.push(subcatRecord.id);
+        newSubcatIds.push(subcatRecord.id);
+        subcatRecords.push(subcatRecord);
+      }
+      console.log('Subcategorías procesadas, IDs:', newSubcatIds);
+
+      // Para cada subcategoría enviada, verificamos si ya existe una challenge-relation para este step y actualizamos o creamos la relación
+      for (const subcatRecord of subcatRecords) {
+        // Buscamos relación existente usando los IDs internos (stepRecord.id y subcatRecord.id)
+        const existingRelation = await strapi
+          .service('api::challenge-relation.challenge-relation')
+          .find({
+            filters: {
+              challenge_step: stepRecord.id,
+              challenge_subcategory: subcatRecord.id
+            }
+          });
+        if (existingRelation && existingRelation.results && existingRelation.results.length > 0) {
+          const relationRecord = existingRelation.results[0];
+          console.log('Challenge Relation existente encontrada:', relationRecord);
+          const updatedRelation = await strapi
+            .service('api::challenge-relation.challenge-relation')
+            .update(relationRecord.documentId, {
+              data: { challenge_stages: stageIds }
+            });
+          console.log('Challenge Relation actualizada:', updatedRelation);
+        } else {
+          console.log('Creando nueva Challenge Relation para subcategoría:', subcatRecord.id);
+          const newRelation = await strapi
+            .service('api::challenge-relation.challenge-relation')
+            .create({
+              data: {
+                challenge_subcategory: subcatRecord.id,
+                challenge_step: stepRecord.id,
+                challenge_stages: stageIds
+              }
+            });
+          console.log('Challenge Relation creada:', newRelation);
+        }
       }
 
-      // Se arma el objeto de actualización para el step
-      // Al asignar los arrays nuevos, se reemplazan las relaciones previas, por lo que se eliminan las que el usuario quitó
-      const updatedStep = await strapi
-        .service('api::challenge-step.challenge-step')
-        .update(stepRecord.documentId, {
-          data: {
-            name,
-            challenge_stages: stageIds,
-            challenge_subcategories: subcategoryIds,
+      // Deshacer relaciones: Obtener todas las relaciones asociadas a este step
+      const allRelations = await strapi
+        .service('api::challenge-relation.challenge-relation')
+        .find({
+          filters: {
+            challenge_step: stepRecord.id
           },
+          populate: ['challenge_subcategory']
         });
+      console.log('Todas las relaciones para el step:', allRelations);
 
+      // Para cada relación, si su challenge_subcategory no está entre las nuevas, se "deshace" la relación quitando ambas asociaciones.
+      if (allRelations && allRelations.results && allRelations.results.length > 0) {
+        for (const relation of allRelations.results) {
+          // Si ya no se envió la subcategoría (o no está poblada) se "deshace" la relación
+          if (!relation.challenge_subcategory || !newSubcatIds.includes(relation.challenge_subcategory.id)) {
+            console.log(`Deshaciendo relación con id ${relation.id} porque la subcategoría ya no está presente`);
+            await strapi
+              .service('api::challenge-relation.challenge-relation')
+              .update(relation.id, {
+                data: {
+                  challenge_step: null,
+                  challenge_subcategory: null
+                }
+              });
+            console.log(`Relación con id ${relation.id} actualizada para remover asociaciones`);
+          }
+        }
+      }
+      console.log("updatedStep", updatedStep);
       ctx.send(updatedStep);
     } catch (error) {
+      console.error('Error en updateWithRelations:', error);
       ctx.throw(500, error);
     }
   },
   async getAllData(ctx) {
     console.log('getAllData');
     try {
-      // Obtenemos todos los steps, incluyendo las relaciones con sus subcategorías y stages
-      const steps = await strapi
-        .service('api::challenge-step.challenge-step')
-        .find({
-          populate: {
-            challenge_relations: {
-              populate: ['challenge_subcategory', 'challenge_stages']
+      const { documentId } = ctx.params; // Se extrae el documentId de los parámetros de la URL
+      let steps;
+
+      if (documentId) {
+        // Si se proporciona documentId, filtramos la búsqueda
+        steps = await strapi
+          .service('api::challenge-step.challenge-step')
+          .find({
+            filters: { documentId },
+            populate: {
+              challenge_relations: {
+                populate: ['challenge_subcategory', 'challenge_stages']
+              }
             }
-          }
-        });
+          });
+      } else {
+        // Si no, obtenemos todos los steps
+        steps = await strapi
+          .service('api::challenge-step.challenge-step')
+          .find({
+            populate: {
+              challenge_relations: {
+                populate: ['challenge_subcategory', 'challenge_stages']
+              }
+            }
+          });
+      }
+
       console.log('Steps encontrados:', JSON.stringify(steps, null, 2));
 
-      // Procesamos cada step para extraer las subcategorías y stages de cada relación,
-      // evitando duplicados (filtrando por documentId)
+      // Procesamos cada step para extraer y filtrar subcategorías y stages
       steps.data = steps.results.map(step => {
         console.log('Procesando step con documentId:', step.documentId);
         const subcategories = [];
         const stages = [];
+
         if (step.challenge_relations && Array.isArray(step.challenge_relations)) {
           step.challenge_relations.forEach(relation => {
             console.log('Procesando relación:', JSON.stringify(relation, null, 2));
@@ -255,7 +319,7 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
               }
             }
 
-            // Procesamos los stages: pueden venir como objeto único o como arreglo
+            // Procesamos los stages: pueden venir como objeto único o arreglo
             if (relation.challenge_stages) {
               const relationStages = Array.isArray(relation.challenge_stages)
                 ? relation.challenge_stages
@@ -278,13 +342,14 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
         };
       });
 
-      console.log('Steps procesados:', JSON.stringify(steps, null, 2));
+      // console.log('Steps procesados:', JSON.stringify(steps, null, 2));
       ctx.send(steps);
     } catch (error) {
       console.error('Error en getAllData:', error);
       ctx.throw(500, error);
     }
   }
+
 
 
 }));
