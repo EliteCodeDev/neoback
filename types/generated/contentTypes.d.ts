@@ -460,7 +460,7 @@ export interface ApiChallengeRelationChallengeRelation
     singularName: 'challenge-relation';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     broker_account: Schema.Attribute.Relation<
@@ -837,9 +837,10 @@ export interface ApiTicketAssignamentTicketAssignament
       'api::ticket-assignament.ticket-assignament'
     > &
       Schema.Attribute.Private;
-    porcentajeResultado: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    porcentajeResultado: Schema.Attribute.Decimal &
+      Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
-    resultado: Schema.Attribute.String & Schema.Attribute.Required;
+    resultado: Schema.Attribute.String & Schema.Attribute.DefaultTo<'NoGirado'>;
     ticket: Schema.Attribute.Relation<'manyToOne', 'api::ticket.ticket'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
