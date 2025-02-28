@@ -248,12 +248,12 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
         for (const relation of allRelations.results) {
           // Si ya no se envió la subcategoría (o no está poblada) se "deshace" la relación
           if (!relation.challenge_subcategory || !newSubcatIds.includes(relation.challenge_subcategory.id)) {
-            console.log(`Deshaciendo relación con id ${relation.id} porque la subcategoría ya no está presente`);
+            console.log(`Deshaciendo relación con id ${relation.documentId} porque la subcategoría ya no está presente`);
             await strapi
               .service('api::challenge-relation.challenge-relation')
-              .update(relation.id, {
+              .update(relation.documentId, {
                 data: {
-                  challenge_step: null,
+                  // challenge_step: null,
                   challenge_subcategory: null
                 }
               });
