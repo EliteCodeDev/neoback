@@ -21,23 +21,28 @@
       "default": true,
       "required": true
     },
-    "expiracion": {
+    "fechaExpiracion": {
       "type": "datetime",
       "required": true
-    },
-    "ticket_assignaments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::ticket-assignament.ticket-assignament",
-      "mappedBy": "ticket"
     },
     "porcentaje": {
       "type": "decimal",
       "required": true
     },
-    "duracionAsignacion": {
-      "type": "integer",
-      "required": true
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tickets"
+    },
+    "premio": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string"
+    },
+    "fechaAsignacion": {
+      "type": "datetime"
     }
   }
 }

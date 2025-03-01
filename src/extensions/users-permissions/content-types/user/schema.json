@@ -118,11 +118,11 @@
       "type": "boolean",
       "default": false
     },
-    "ticket_assignaments": {
+    "tickets": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::ticket-assignament.ticket-assignament",
-      "mappedBy": "user"
+      "target": "api::ticket.ticket",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

@@ -809,49 +809,6 @@ export interface ApiSupportSupport extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTicketAssignamentTicketAssignament
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'ticket_assignaments';
-  info: {
-    description: '';
-    displayName: 'TicketAssignament';
-    pluralName: 'ticket-assignaments';
-    singularName: 'ticket-assignament';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    estado: Schema.Attribute.Enumeration<['disponible', 'usado', 'expirado']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'disponible'>;
-    fechaAsignacion: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    fechaExpiracionAsignacion: Schema.Attribute.DateTime &
-      Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::ticket-assignament.ticket-assignament'
-    > &
-      Schema.Attribute.Private;
-    porcentajeResultado: Schema.Attribute.Decimal &
-      Schema.Attribute.DefaultTo<0>;
-    publishedAt: Schema.Attribute.DateTime;
-    resultado: Schema.Attribute.String & Schema.Attribute.DefaultTo<'NoGirado'>;
-    ticket: Schema.Attribute.Relation<'manyToOne', 'api::ticket.ticket'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
 export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
   collectionName: 'tickets';
   info: {
@@ -867,8 +824,8 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    duracionAsignacion: Schema.Attribute.Integer & Schema.Attribute.Required;
-    expiracion: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    fechaAsignacion: Schema.Attribute.DateTime;
+    fechaExpiracion: Schema.Attribute.DateTime & Schema.Attribute.Required;
     habilitado: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
@@ -880,14 +837,16 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     porcentaje: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    premio: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    ticket_assignaments: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::ticket-assignament.ticket-assignament'
-    >;
+    tipo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1424,10 +1383,7 @@ export interface PluginUsersPermissionsUser
       ['pending', 'approved', 'rejected']
     >;
     street: Schema.Attribute.String;
-    ticket_assignaments: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::ticket-assignament.ticket-assignament'
-    >;
+    tickets: Schema.Attribute.Relation<'oneToMany', 'api::ticket.ticket'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1463,7 +1419,6 @@ declare module '@strapi/strapi' {
       'api::provisional-product.provisional-product': ApiProvisionalProductProvisionalProduct;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
-      'api::ticket-assignament.ticket-assignament': ApiTicketAssignamentTicketAssignament;
       'api::ticket.ticket': ApiTicketTicket;
       'api::withdraw.withdraw': ApiWithdrawWithdraw;
       'plugin::content-releases.release': PluginContentReleasesRelease;
