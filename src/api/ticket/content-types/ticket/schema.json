@@ -21,13 +21,13 @@
       "default": true,
       "required": true
     },
-    "fechaExpiracion": {
+    "fechaExpiracionTicket": {
       "type": "datetime",
       "required": true
     },
     "porcentaje": {
       "type": "decimal",
-      "required": true
+      "required": false
     },
     "users_permissions_user": {
       "type": "relation",
@@ -41,7 +41,10 @@
     "tipo": {
       "type": "string"
     },
-    "fechaAsignacion": {
+    "fechaAsignacionPremio": {
+      "type": "datetime"
+    },
+    "fechaExpiracionPremio": {
       "type": "datetime"
     }
   }

@@ -824,8 +824,10 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fechaAsignacion: Schema.Attribute.DateTime;
-    fechaExpiracion: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    fechaAsignacionPremio: Schema.Attribute.DateTime;
+    fechaExpiracionPremio: Schema.Attribute.DateTime;
+    fechaExpiracionTicket: Schema.Attribute.DateTime &
+      Schema.Attribute.Required;
     habilitado: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
@@ -836,7 +838,7 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    porcentaje: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    porcentaje: Schema.Attribute.Decimal;
     premio: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     tipo: Schema.Attribute.String;
