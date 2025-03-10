@@ -748,6 +748,36 @@ export interface ApiProvisionalProductProvisionalProduct
   };
 }
 
+export interface ApiRewardReward extends Struct.CollectionTypeSchema {
+  collectionName: 'rewards';
+  info: {
+    description: '';
+    displayName: 'Reward';
+    pluralName: 'rewards';
+    singularName: 'reward';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reward.reward'
+    > &
+      Schema.Attribute.Private;
+    procentaje: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
   collectionName: 'socials';
   info: {
@@ -1422,6 +1452,7 @@ declare module '@strapi/strapi' {
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
       'api::provisional-product.provisional-product': ApiProvisionalProductProvisionalProduct;
+      'api::reward.reward': ApiRewardReward;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
       'api::ticket.ticket': ApiTicketTicket;
