@@ -436,6 +436,7 @@ export interface ApiChallengeProductChallengeProduct
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -443,10 +444,12 @@ export interface ApiChallengeProductChallengeProduct
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    precio: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    WoocomerceId: Schema.Attribute.Integer;
   };
 }
 

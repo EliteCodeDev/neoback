@@ -20,6 +20,16 @@
       "relation": "manyToMany",
       "target": "api::challenge-relation.challenge-relation",
       "mappedBy": "challenge_products"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "precio": {
+      "type": "decimal"
+    },
+    "WoocomerceId": {
+      "type": "integer"
     }
   }
 }
