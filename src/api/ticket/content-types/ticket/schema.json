@@ -12,9 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "codigo": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "habilitado": {
       "type": "boolean",
@@ -23,17 +23,11 @@
     },
     "fechaExpiracionTicket": {
       "type": "datetime",
-      "required": true
+      "required": false
     },
     "porcentaje": {
       "type": "decimal",
       "required": false
-    },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "tickets"
     },
     "premio": {
       "type": "string"
@@ -46,6 +40,12 @@
     },
     "fechaExpiracionPremio": {
       "type": "datetime"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tickets"
     }
   }
 }
