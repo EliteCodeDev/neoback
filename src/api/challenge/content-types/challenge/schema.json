@@ -59,6 +59,12 @@
     },
     "metadata": {
       "type": "json"
+    },
+    "withdraw": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::withdraw.withdraw",
+      "mappedBy": "challenge"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "withdraw",
     "pluralName": "withdraws",
-    "displayName": "Withdraw"
+    "displayName": "Withdraw",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -19,6 +20,16 @@
     },
     "red": {
       "type": "string"
+    },
+    "challenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::challenge.challenge",
+      "inversedBy": "withdraw"
+    },
+    "iscompleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

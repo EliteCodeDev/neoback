@@ -651,6 +651,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    withdraw: Schema.Attribute.Relation<'oneToOne', 'api::withdraw.withdraw'>;
   };
 }
 
@@ -889,6 +890,7 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
 export interface ApiWithdrawWithdraw extends Struct.CollectionTypeSchema {
   collectionName: 'withdraws';
   info: {
+    description: '';
     displayName: 'Withdraw';
     pluralName: 'withdraws';
     singularName: 'withdraw';
@@ -898,9 +900,14 @@ export interface ApiWithdrawWithdraw extends Struct.CollectionTypeSchema {
   };
   attributes: {
     amount: Schema.Attribute.Integer;
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    iscompleted: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
