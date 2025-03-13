@@ -49,9 +49,9 @@
     },
     "challenge_relation": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::challenge-relation.challenge-relation",
-      "inversedBy": "challenge"
+      "inversedBy": "challenges"
     },
     "isactive": {
       "type": "boolean",
