@@ -52,6 +52,13 @@
       "relation": "oneToOne",
       "target": "api::challenge-relation.challenge-relation",
       "inversedBy": "challenge"
+    },
+    "isactive": {
+      "type": "boolean",
+      "default": true
+    },
+    "metadata": {
+      "type": "json"
     }
   }
 }

@@ -630,12 +630,14 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     endDate: Schema.Attribute.DateTime;
+    isactive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge.challenge'
     > &
       Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON;
     phase: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.Enumeration<
