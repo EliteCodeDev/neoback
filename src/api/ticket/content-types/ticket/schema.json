@@ -46,6 +46,9 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "tickets"
+    },
+    "idChallengeLose": {
+      "type": "string"
     }
   }
 }
