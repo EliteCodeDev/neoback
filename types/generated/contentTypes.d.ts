@@ -462,10 +462,6 @@ export interface ApiChallengeRelationChallengeRelation
     draftAndPublish: false;
   };
   attributes: {
-    challenge: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::challenge.challenge'
-    >;
     challenge_products: Schema.Attribute.Relation<
       'manyToMany',
       'api::challenge-product.challenge-product'
@@ -481,6 +477,10 @@ export interface ApiChallengeRelationChallengeRelation
     challenge_subcategory: Schema.Attribute.Relation<
       'manyToOne',
       'api::challenge-subcategory.challenge-subcategory'
+    >;
+    challenges: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::challenge.challenge'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -622,7 +622,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'api::broker-account.broker-account'
     >;
     challenge_relation: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::challenge-relation.challenge-relation'
     >;
     challengeId: Schema.Attribute.String;

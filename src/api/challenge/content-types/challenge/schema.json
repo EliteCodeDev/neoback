@@ -47,18 +47,18 @@
     "challengeId": {
       "type": "string"
     },
-    "challenge_relation": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::challenge-relation.challenge-relation",
-      "inversedBy": "challenge"
-    },
     "isactive": {
       "type": "boolean",
       "default": true
     },
     "metadata": {
       "type": "json"
+    },
+    "challenge_relation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::challenge-relation.challenge-relation",
+      "inversedBy": "challenges"
     }
   }
 }
