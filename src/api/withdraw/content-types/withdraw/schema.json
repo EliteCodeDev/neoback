@@ -26,10 +26,6 @@
       "relation": "oneToOne",
       "target": "api::challenge.challenge",
       "inversedBy": "withdraw"
-    },
-    "iscompleted": {
-      "type": "boolean",
-      "default": false
     }
   }
 }
