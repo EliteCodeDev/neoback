@@ -46,6 +46,12 @@
     },
     "challengeId": {
       "type": "string"
+    },
+    "challenge_relation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::challenge-relation.challenge-relation",
+      "inversedBy": "challenge"
     }
   }
 }

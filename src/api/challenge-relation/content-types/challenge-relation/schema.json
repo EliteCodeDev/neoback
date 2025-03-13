@@ -45,17 +45,17 @@
     "leverage": {
       "type": "integer"
     },
-    "broker_account": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::broker-account.broker-account",
-      "inversedBy": "challenge_relation"
-    },
     "challenge_stages": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::challenge-stage.challenge-stage",
       "inversedBy": "challenge_relations"
+    },
+    "challenge": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::challenge.challenge",
+      "mappedBy": "challenge_relation"
     }
   }
 }

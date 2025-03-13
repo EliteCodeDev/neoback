@@ -48,12 +48,6 @@
       "relation": "oneToOne",
       "target": "api::challenge.challenge",
       "inversedBy": "broker_account"
-    },
-    "challenge_relation": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::challenge-relation.challenge-relation",
-      "mappedBy": "broker_account"
     }
   }
 }
