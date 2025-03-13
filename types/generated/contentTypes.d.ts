@@ -866,6 +866,7 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     habilitado: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
+    idChallengeLose: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
