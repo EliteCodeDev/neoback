@@ -652,6 +652,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    wc_order: Schema.Attribute.String;
     withdraw: Schema.Attribute.Relation<'oneToOne', 'api::withdraw.withdraw'>;
   };
 }
