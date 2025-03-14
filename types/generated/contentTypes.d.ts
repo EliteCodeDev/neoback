@@ -638,6 +638,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     metadata: Schema.Attribute.JSON;
+    parentId: Schema.Attribute.String;
     phase: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.Enumeration<

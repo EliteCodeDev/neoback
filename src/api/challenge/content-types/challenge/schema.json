@@ -65,6 +65,10 @@
       "relation": "oneToOne",
       "target": "api::withdraw.withdraw",
       "mappedBy": "challenge"
+    },
+    "parentId": {
+      "type": "string",
+      "required": false
     }
   }
 }
