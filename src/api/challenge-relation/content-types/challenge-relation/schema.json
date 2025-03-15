@@ -36,7 +36,7 @@
     "maximumDailyLoss": {
       "type": "integer"
     },
-    "maximumLoss": {
+    "maxDrawdown": {
       "type": "integer"
     },
     "profitTarget": {

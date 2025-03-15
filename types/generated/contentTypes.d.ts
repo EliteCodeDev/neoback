@@ -492,8 +492,8 @@ export interface ApiChallengeRelationChallengeRelation
       'api::challenge-relation.challenge-relation'
     > &
       Schema.Attribute.Private;
+    maxDrawdown: Schema.Attribute.Integer;
     maximumDailyLoss: Schema.Attribute.Integer;
-    maximumLoss: Schema.Attribute.Integer;
     minimumTradingDays: Schema.Attribute.Integer;
     profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
