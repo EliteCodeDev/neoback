@@ -56,6 +56,12 @@
       "relation": "oneToMany",
       "target": "api::challenge.challenge",
       "mappedBy": "challenge_relation"
+    },
+    "maximumTotalLoss": {
+      "type": "integer"
+    },
+    "maximumLossPerTrade": {
+      "type": "integer"
     }
   }
 }
