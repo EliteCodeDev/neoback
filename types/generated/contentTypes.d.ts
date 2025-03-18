@@ -904,7 +904,7 @@ export interface ApiWithdrawWithdraw extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    amount: Schema.Attribute.Integer;
+    amount: Schema.Attribute.Decimal;
     challenge: Schema.Attribute.Relation<
       'oneToOne',
       'api::challenge.challenge'
