@@ -30,21 +30,6 @@
       "target": "api::challenge-subcategory.challenge-subcategory",
       "inversedBy": "challenge_relations"
     },
-    "minimumTradingDays": {
-      "type": "integer"
-    },
-    "maximumDailyLoss": {
-      "type": "decimal"
-    },
-    "maxDrawdown": {
-      "type": "integer"
-    },
-    "profitTarget": {
-      "type": "integer"
-    },
-    "leverage": {
-      "type": "integer"
-    },
     "challenge_stages": {
       "type": "relation",
       "relation": "manyToMany",
@@ -56,12 +41,6 @@
       "relation": "oneToMany",
       "target": "api::challenge.challenge",
       "mappedBy": "challenge_relation"
-    },
-    "maximumTotalLoss": {
-      "type": "integer"
-    },
-    "maximumLossPerTrade": {
-      "type": "integer"
     }
   }
 }

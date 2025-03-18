@@ -485,19 +485,12 @@ export interface ApiChallengeRelationChallengeRelation
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    leverage: Schema.Attribute.Integer;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge-relation.challenge-relation'
     > &
       Schema.Attribute.Private;
-    maxDrawdown: Schema.Attribute.Integer;
-    maximumDailyLoss: Schema.Attribute.Decimal;
-    maximumLossPerTrade: Schema.Attribute.Integer;
-    maximumTotalLoss: Schema.Attribute.Integer;
-    minimumTradingDays: Schema.Attribute.Integer;
-    profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -525,13 +518,19 @@ export interface ApiChallengeStageChallengeStage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    leverage: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge-stage.challenge-stage'
     > &
       Schema.Attribute.Private;
+    maximumDailyLoss: Schema.Attribute.Decimal;
+    maximumLossPerTrade: Schema.Attribute.Integer;
+    maximumTotalLoss: Schema.Attribute.Integer;
+    minimumTradingDays: Schema.Attribute.Integer;
     name: Schema.Attribute.String;
+    profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
