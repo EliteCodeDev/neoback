@@ -530,6 +530,7 @@ export interface ApiChallengeStageChallengeStage
     maximumTotalLoss: Schema.Attribute.Integer;
     minimumTradingDays: Schema.Attribute.Integer;
     name: Schema.Attribute.String;
+    phase: Schema.Attribute.Integer;
     profitTarget: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;

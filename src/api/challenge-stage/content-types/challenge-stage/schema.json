@@ -38,6 +38,9 @@
     },
     "maximumLossPerTrade": {
       "type": "integer"
+    },
+    "phase": {
+      "type": "integer"
     }
   }
 }
