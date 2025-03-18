@@ -13,38 +13,28 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
       console.log('Data recibida:', ctx.request.body);
       const { name, stages = [], subcategories = [] } = ctx.request.body;
 
-      // Array para almacenar los IDs de los stages creados o existentes
+      // Array para almacenar los IDs de los stages creados
       const stageIds = [];
 
-      // Procesamos los stages
-      for (const stage of stages) {
-        let stageRecord;
-        if (stage.documentId) {
-          // Buscamos el stage existente filtrando por documentId
-          const existingStages = await strapi
-            .service('api::challenge-stage.challenge-stage')
-            .find({
-              filters: { documentId: stage.documentId }
-            });
-          if (existingStages?.results?.length) {
-            stageRecord = existingStages.results[0];
-          } else {
-            console.log('Stage nuevo1:', stage);
-            // Si no se encuentra, se crea el stage
-            stageRecord = await strapi
-              .service('api::challenge-stage.challenge-stage')
-              .create({ data: stage });
-            console.log('Stage nuevo2:', stageRecord);
-          }
-        } else {
-          console.log('Stage nuevo:', stage);
-          // Se asume que es un stage nuevo
-          stageRecord = await strapi
-            .service('api::challenge-stage.challenge-stage')
-            .create({ data: stage });
-          console.log('Stage nuevo2:', stageRecord);
-        }
-        console.log('Stage:', stageRecord);
+      // Procesamos los stages - SIEMPRE creando uno nuevo
+      for (let i = 0; i < stages.length; i++) {
+        const stage = stages[i];
+
+        // Creamos un nuevo objeto con solo el nombre del stage original
+        // y añadimos la propiedad phase basada en su posición
+        const newStage = {
+          name: stage.name,
+          phase: i + 1  // Empezamos desde 1
+        };
+
+        console.log('Creando nuevo stage:', newStage);
+
+        // Siempre creamos un nuevo stage
+        const stageRecord = await strapi
+          .service('api::challenge-stage.challenge-stage')
+          .create({ data: newStage });
+
+        console.log('Stage creado:', stageRecord);
         stageIds.push(stageRecord.documentId);
       }
 
@@ -85,7 +75,7 @@ module.exports = createCoreController('api::challenge-step.challenge-step', ({ s
         // Se crea un registro en Challenge Relations que contenga:
         // - El id de la subcategoría
         // - El id del challenge-step
-        // - Todos los stages enviados
+        // - Todos los stages nuevos creados
         let challengeRelation = await strapi
           .service('api::challenge-relation.challenge-relation')
           .create({
