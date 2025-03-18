@@ -34,7 +34,7 @@
       "type": "integer"
     },
     "maximumDailyLoss": {
-      "type": "integer"
+      "type": "decimal"
     },
     "maxDrawdown": {
       "type": "integer"

@@ -493,7 +493,7 @@ export interface ApiChallengeRelationChallengeRelation
     > &
       Schema.Attribute.Private;
     maxDrawdown: Schema.Attribute.Integer;
-    maximumDailyLoss: Schema.Attribute.Integer;
+    maximumDailyLoss: Schema.Attribute.Decimal;
     maximumLossPerTrade: Schema.Attribute.Integer;
     maximumTotalLoss: Schema.Attribute.Integer;
     minimumTradingDays: Schema.Attribute.Integer;
