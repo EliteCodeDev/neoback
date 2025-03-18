@@ -1,6 +1,7 @@
 'use strict';
 
 /**
+ * src/api/challenge-relation/routes/challenge-relation.js
  * challenge-relation router
  */
 

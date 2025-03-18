@@ -1,3 +1,4 @@
+// src/api/challenge-relation/controllers/challenge-relation.js
 'use strict';
 
 const { createCoreController } = require('@strapi/strapi').factories;
@@ -12,7 +13,8 @@ module.exports = createCoreController('api::challenge-relation.challenge-relatio
       const {
         minimumTradingDays,
         maximumDailyLoss,
-        maximumLoss,
+        maximumTotalLoss, // Cambiado de maximumLoss
+        maximumLossPerTrade, // Nuevo campo añadido
         profitTarget,
         leverage,
         challenge_subcategory,
@@ -123,7 +125,8 @@ module.exports = createCoreController('api::challenge-relation.challenge-relatio
           data: {
             minimumTradingDays,
             maximumDailyLoss,
-            maximumLoss,
+            maximumTotalLoss, // Cambiado de maximumLoss
+            maximumLossPerTrade, // Nuevo campo añadido
             profitTarget,
             leverage,
             challenge_subcategory: subcategoryId,
@@ -143,4 +146,4 @@ module.exports = createCoreController('api::challenge-relation.challenge-relatio
       return ctx.badRequest('Error al actualizar ChallengeRelations con relaciones.');
     }
   },
-}));
+}))
