@@ -16,7 +16,7 @@
       "type": "string"
     },
     "amount": {
-      "type": "integer"
+      "type": "decimal"
     },
     "red": {
       "type": "string"
