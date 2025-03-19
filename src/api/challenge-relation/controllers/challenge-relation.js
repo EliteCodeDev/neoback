@@ -1,149 +1,148 @@
 // src/api/challenge-relation/controllers/challenge-relation.js
-'use strict';
+"use strict";
 
-const { createCoreController } = require('@strapi/strapi').factories;
+const { createCoreController } = require("@strapi/strapi").factories;
 
-module.exports = createCoreController('api::challenge-relation.challenge-relation', ({ strapi }) => ({
-  async updateWithRelations(ctx) {
-    try {
-      // Obtener documentId desde los parámetros de la URL
-      const { documentId } = ctx.params;
+module.exports = createCoreController(
+  "api::challenge-relation.challenge-relation",
+  ({ strapi }) => ({
+    async updateWithRelations(ctx) {
+      try {
+        const { documentId } = ctx.params;
+        const {
+          challenge_subcategory,
+          challenge_step,
+          challenge_stages,
+          challenge_products,
+        } = ctx.request.body.data || {};
 
-      // Extraer datos del cuerpo de la solicitud (dentro de "data")
-      const {
-        minimumTradingDays,
-        maximumDailyLoss,
-        maximumTotalLoss, // Cambiado de maximumLoss
-        maximumLossPerTrade, // Nuevo campo añadido
-        profitTarget,
-        leverage,
-        challenge_subcategory,
-        challenge_step,
-        challenge_stages,
-        challenge_products,
-      } = ctx.request.body.data || {};
-
-      // Validar que se proporcione un documentId
-      if (!documentId) {
-        return ctx.badRequest('El parámetro "documentId" es obligatorio.');
-      }
-
-      // 1) Buscar el ChallengeRelations por documentId
-      const relations = await strapi.entityService.findMany(
-        'api::challenge-relation.challenge-relation',
-        {
-          filters: { documentId: { $eq: documentId } },
-          limit: 1,
+        // Validar documentId
+        if (!documentId) {
+          return ctx.badRequest('El parámetro "documentId" es obligatorio.');
         }
-      );
-      if (!relations.length) {
-        return ctx.notFound(`No se encontró ChallengeRelations con documentId = ${documentId}`);
-      }
-      const existingRelation = relations[0];
 
-      // 2) Manejar la subcategoría (relación 1:1)
-      let subcategoryId = null;
-      if (challenge_subcategory && challenge_subcategory.documentId) {
-        const subcategories = await strapi.entityService.findMany(
-          'api::challenge-subcategory.challenge-subcategory',
+        // Buscar el ChallengeRelation existente
+        const relations = await strapi.entityService.findMany(
+          "api::challenge-relation.challenge-relation",
           {
-            filters: { documentId: { $eq: challenge_subcategory.documentId } },
+            filters: { documentId: { $eq: documentId } },
+            populate: ["challenge_stages", "challenge_products", "challenge_subcategory", "challenge_step"],
             limit: 1,
           }
         );
-        if (subcategories.length) {
-          subcategoryId = subcategories[0].id;
-        } else {
-          return ctx.badRequest(`No se encontró ChallengeSubcategory con documentId = ${challenge_subcategory.documentId}`);
+        if (!relations.length) {
+          return ctx.notFound(`No se encontró ChallengeRelation con documentId = ${documentId}`);
         }
-      }
+        const existingRelation = relations[0];
 
-      // 3) Manejar el step (relación 1:1)
-      let stepId = null;
-      if (challenge_step && challenge_step.documentId) {
-        const steps = await strapi.entityService.findMany(
-          'api::challenge-step.challenge-step',
+        // Actualizar o crear ChallengeStages
+        const updatedStageIDs = [];
+        if (Array.isArray(challenge_stages)) {
+          for (const stageData of challenge_stages) {
+            if (stageData.id && stageData.id !== "default") {
+              // Actualizar stage existente solo si hay cambios
+              const existingStage = existingRelation.challenge_stages.find(
+                (s) => s.id === stageData.id
+              );
+              if (
+                existingStage &&
+                (existingStage.minimumTradingDays !== stageData.minimumTradingDays ||
+                 existingStage.maximumDailyLoss !== stageData.maximumDailyLoss ||
+                 existingStage.maximumTotalLoss !== stageData.maximumTotalLoss ||
+                 existingStage.maximumLossPerTrade !== stageData.maximumLossPerTrade ||
+                 existingStage.profitTarget !== stageData.profitTarget ||
+                 existingStage.leverage !== stageData.leverage ||
+                 existingStage.name !== stageData.name)
+              ) {
+                const updatedStage = await strapi.entityService.update(
+                  "api::challenge-stage.challenge-stage",
+                  stageData.id,
+                  {
+                    data: {
+                      name: stageData.name,
+                      minimumTradingDays: stageData.minimumTradingDays,
+                      maximumDailyLoss: stageData.maximumDailyLoss,
+                      maximumTotalLoss: stageData.maximumTotalLoss,
+                      maximumLossPerTrade: stageData.maximumLossPerTrade,
+                      profitTarget: stageData.profitTarget,
+                      leverage: stageData.leverage,
+                    },
+                  }
+                );
+                updatedStageIDs.push(updatedStage.id);
+              } else {
+                updatedStageIDs.push(stageData.id); // Mantener sin cambios
+              }
+            } else if (stageData.id === "default") {
+              // Crear nuevo stage
+              const newStage = await strapi.entityService.create(
+                "api::challenge-stage.challenge-stage",
+                {
+                  data: {
+                    name: stageData.name,
+                    minimumTradingDays: stageData.minimumTradingDays,
+                    maximumDailyLoss: stageData.maximumDailyLoss,
+                    maximumTotalLoss: stageData.maximumTotalLoss,
+                    maximumLossPerTrade: stageData.maximumLossPerTrade,
+                    profitTarget: stageData.profitTarget,
+                    leverage: stageData.leverage,
+                    challenge_relations: [existingRelation.id],
+                  },
+                }
+              );
+              updatedStageIDs.push(newStage.id);
+            }
+          }
+        }
+
+        // Manejar subcategory
+        let subcategoryId = existingRelation.challenge_subcategory?.id || null;
+        if (challenge_subcategory && challenge_subcategory.id) {
+          subcategoryId = challenge_subcategory.id;
+        } else if (challenge_subcategory === null) {
+          subcategoryId = null;
+        }
+
+        // Manejar step
+        let stepId = existingRelation.challenge_step?.id || null;
+        if (challenge_step && challenge_step.id) {
+          stepId = challenge_step.id;
+        } else if (challenge_step === null) {
+          stepId = null;
+        }
+
+        // Manejar products
+        let productIDs = existingRelation.challenge_products.map((p) => p.id);
+        if (Array.isArray(challenge_products)) {
+          productIDs = challenge_products.map((p) => p.id).filter(Boolean);
+        }
+
+        // Actualizar ChallengeRelation
+        const updatedRelation = await strapi.entityService.update(
+          "api::challenge-relation.challenge-relation",
+          existingRelation.id,
           {
-            filters: { documentId: { $eq: challenge_step.documentId } },
-            limit: 1,
+            data: {
+              challenge_subcategory: subcategoryId,
+              challenge_step: stepId,
+              challenge_stages: updatedStageIDs,
+              challenge_products: productIDs,
+              publishedAt: new Date().toISOString(),
+            },
+            populate: [
+              "challenge_subcategory",
+              "challenge_step",
+              "challenge_stages",
+              "challenge_products",
+            ],
           }
         );
-        if (steps.length) {
-          stepId = steps[0].id;
-        } else {
-          return ctx.badRequest(`No se encontró ChallengeStep con documentId = ${challenge_step.documentId}`);
-        }
+
+        return this.transformResponse(updatedRelation);
+      } catch (error) {
+        console.error("Error en updateWithRelations:", error);
+        return ctx.badRequest("Error al actualizar ChallengeRelation con relaciones.");
       }
-
-      // 4) Manejar las stages (relación N:M)
-      let stageIDs = [];
-      if (Array.isArray(challenge_stages)) {
-        for (const stage of challenge_stages) {
-          if (stage.documentId) {
-            const stages = await strapi.entityService.findMany(
-              'api::challenge-stage.challenge-stage',
-              {
-                filters: { documentId: { $eq: stage.documentId } },
-                limit: 1,
-              }
-            );
-            if (stages.length) {
-              stageIDs.push(stages[0].id);
-            } else {
-              return ctx.badRequest(`No se encontró ChallengeStage con documentId = ${stage.documentId}`);
-            }
-          }
-        }
-      }
-
-      // 5) Manejar los products (relación N:M)
-      let productIDs = [];
-      if (Array.isArray(challenge_products)) {
-        for (const product of challenge_products) {
-          if (product.documentId) {
-            const products = await strapi.entityService.findMany(
-              'api::challenge-product.challenge-product',
-              {
-                filters: { documentId: { $eq: product.documentId } },
-                limit: 1,
-              }
-            );
-            if (products.length) {
-              productIDs.push(products[0].id);
-            } else {
-              return ctx.badRequest(`No se encontró ChallengeProduct con documentId = ${product.documentId}`);
-            }
-          }
-        }
-      }
-
-      // 6) Actualizar ChallengeRelations
-      const updatedRelation = await strapi.entityService.update(
-        'api::challenge-relation.challenge-relation',
-        existingRelation.id,
-        {
-          data: {
-            minimumTradingDays,
-            maximumDailyLoss,
-            maximumTotalLoss, // Cambiado de maximumLoss
-            maximumLossPerTrade, // Nuevo campo añadido
-            profitTarget,
-            leverage,
-            challenge_subcategory: subcategoryId,
-            challenge_step: stepId,
-            challenge_stages: stageIDs,
-            challenge_products: productIDs,
-            publishedAt: new Date().toISOString(),
-          },
-          populate: ['challenge_subcategory', 'challenge_step', 'challenge_stages', 'challenge_products'],
-        }
-      );
-
-      // Devolver la respuesta transformada
-      return this.transformResponse(updatedRelation);
-    } catch (error) {
-      console.error('Error en updateWithRelations:', error);
-      return ctx.badRequest('Error al actualizar ChallengeRelations con relaciones.');
-    }
-  },
-}))
+    },
+  })
+);
