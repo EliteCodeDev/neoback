@@ -390,6 +390,7 @@ export interface ApiBrokerAccountBrokerAccount
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dynamicBalance: Schema.Attribute.Decimal;
     idMeta: Schema.Attribute.String;
     inversorPass: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
