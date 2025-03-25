@@ -72,6 +72,9 @@
     },
     "wc_order": {
       "type": "string"
+    },
+    "dynamic_balance": {
+      "type": "decimal"
     }
   }
 }

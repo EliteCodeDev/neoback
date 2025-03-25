@@ -390,7 +390,6 @@ export interface ApiBrokerAccountBrokerAccount
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dynamicBalance: Schema.Attribute.Decimal;
     idMeta: Schema.Attribute.String;
     inversorPass: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -632,6 +631,7 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dynamic_balance: Schema.Attribute.Decimal;
     endDate: Schema.Attribute.DateTime;
     isactive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

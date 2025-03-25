@@ -48,9 +48,6 @@
       "relation": "oneToOne",
       "target": "api::challenge.challenge",
       "inversedBy": "broker_account"
-    },
-    "dynamicBalance": {
-      "type": "decimal"
     }
   }
 }
