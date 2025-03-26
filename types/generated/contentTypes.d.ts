@@ -413,6 +413,53 @@ export interface ApiBrokerAccountBrokerAccount
   };
 }
 
+export interface ApiCertificateCertificate extends Struct.CollectionTypeSchema {
+  collectionName: 'certificates';
+  info: {
+    description: '';
+    displayName: 'Certificate';
+    pluralName: 'certificates';
+    singularName: 'certificate';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    challenge: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::challenge.challenge'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dataChallenge: Schema.Attribute.JSON;
+    dataUser: Schema.Attribute.JSON;
+    fechaFinChallenge: Schema.Attribute.Date & Schema.Attribute.Required;
+    firstName: Schema.Attribute.String & Schema.Attribute.Required;
+    lastName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::certificate.certificate'
+    > &
+      Schema.Attribute.Private;
+    monto: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    qrLink: Schema.Attribute.Text;
+    tipoChallenge: Schema.Attribute.Enumeration<
+      ['fase1', 'fase2', 'fase3', 'retirado']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiChallengeProductChallengeProduct
   extends Struct.CollectionTypeSchema {
   collectionName: 'challenge_products';
@@ -623,6 +670,10 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
     broker_account: Schema.Attribute.Relation<
       'oneToOne',
       'api::broker-account.broker-account'
+    >;
+    certificate: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::certificate.certificate'
     >;
     challenge_relation: Schema.Attribute.Relation<
       'manyToOne',
@@ -1388,6 +1439,10 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    certificates: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::certificate.certificate'
+    >;
     challenges: Schema.Attribute.Relation<
       'oneToMany',
       'api::challenge.challenge'
@@ -1459,6 +1514,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::broker-account.broker-account': ApiBrokerAccountBrokerAccount;
+      'api::certificate.certificate': ApiCertificateCertificate;
       'api::challenge-product.challenge-product': ApiChallengeProductChallengeProduct;
       'api::challenge-relation.challenge-relation': ApiChallengeRelationChallengeRelation;
       'api::challenge-stage.challenge-stage': ApiChallengeStageChallengeStage;

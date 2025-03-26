@@ -75,6 +75,12 @@
     },
     "dynamic_balance": {
       "type": "decimal"
+    },
+    "certificate": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::certificate.certificate",
+      "mappedBy": "challenge"
     }
   }
 }

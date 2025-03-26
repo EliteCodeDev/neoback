@@ -130,6 +130,12 @@
       ],
       "type": "media",
       "multiple": true
+    },
+    "certificates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::certificate.certificate",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
