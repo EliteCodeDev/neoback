@@ -57,6 +57,9 @@
     },
     "dataChallenge": {
       "type": "json"
+    },
+    "producto": {
+      "type": "string"
     }
   }
 }

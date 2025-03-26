@@ -444,6 +444,7 @@ export interface ApiCertificateCertificate extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     monto: Schema.Attribute.Decimal;
+    producto: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     qrLink: Schema.Attribute.Text;
     tipoChallenge: Schema.Attribute.Enumeration<
