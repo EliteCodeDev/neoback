@@ -76,9 +76,9 @@
     "dynamic_balance": {
       "type": "decimal"
     },
-    "certificate": {
+    "certificates": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::certificate.certificate",
       "mappedBy": "challenge"
     }

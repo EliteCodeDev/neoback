@@ -426,7 +426,7 @@ export interface ApiCertificateCertificate extends Struct.CollectionTypeSchema {
   };
   attributes: {
     challenge: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::challenge.challenge'
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -671,8 +671,8 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::broker-account.broker-account'
     >;
-    certificate: Schema.Attribute.Relation<
-      'oneToOne',
+    certificates: Schema.Attribute.Relation<
+      'oneToMany',
       'api::certificate.certificate'
     >;
     challenge_relation: Schema.Attribute.Relation<

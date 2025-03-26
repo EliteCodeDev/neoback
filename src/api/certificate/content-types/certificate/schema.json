@@ -14,9 +14,9 @@
   "attributes": {
     "challenge": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::challenge.challenge",
-      "inversedBy": "certificate"
+      "inversedBy": "certificates"
     },
     "users_permissions_user": {
       "type": "relation",
