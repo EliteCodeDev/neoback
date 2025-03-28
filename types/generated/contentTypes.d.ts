@@ -779,36 +779,6 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiProvisionalProductProvisionalProduct
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'provisional_products';
-  info: {
-    displayName: 'ProvisionalProduct';
-    pluralName: 'provisional-products';
-    singularName: 'provisional-product';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::provisional-product.provisional-product'
-    > &
-      Schema.Attribute.Private;
-    nombre: Schema.Attribute.String & Schema.Attribute.Required;
-    precio: Schema.Attribute.Decimal & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiRewardReward extends Struct.CollectionTypeSchema {
   collectionName: 'rewards';
   info: {
@@ -1524,7 +1494,6 @@ declare module '@strapi/strapi' {
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
-      'api::provisional-product.provisional-product': ApiProvisionalProductProvisionalProduct;
       'api::reward.reward': ApiRewardReward;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
