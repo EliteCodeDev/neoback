@@ -801,11 +801,12 @@ export interface ApiRewardReward extends Struct.CollectionTypeSchema {
       'api::reward.reward'
     > &
       Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
     probabilidad: Schema.Attribute.Decimal;
     procentaje: Schema.Attribute.Decimal;
     productos: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    ticket: Schema.Attribute.Relation<'oneToOne', 'api::ticket.ticket'>;
+    tickets: Schema.Attribute.Relation<'oneToMany', 'api::ticket.ticket'>;
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -907,7 +908,7 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    reward: Schema.Attribute.Relation<'oneToOne', 'api::reward.reward'>;
+    reward: Schema.Attribute.Relation<'manyToOne', 'api::reward.reward'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

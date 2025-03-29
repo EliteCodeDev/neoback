@@ -44,9 +44,9 @@
     },
     "reward": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::reward.reward",
-      "inversedBy": "ticket"
+      "inversedBy": "tickets"
     }
   }
 }
