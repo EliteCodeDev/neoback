@@ -794,18 +794,23 @@ export interface ApiRewardReward extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    duracion: Schema.Attribute.String & Schema.Attribute.DefaultTo<'ilimitado'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::reward.reward'
     > &
       Schema.Attribute.Private;
+    probabilidad: Schema.Attribute.Decimal;
     procentaje: Schema.Attribute.Decimal;
+    productos: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
+    ticket: Schema.Attribute.Relation<'oneToOne', 'api::ticket.ticket'>;
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    usos: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
   };
 }
 
@@ -895,20 +900,18 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     habilitado: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
-    idChallengeLose: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::ticket.ticket'
     > &
       Schema.Attribute.Private;
-    porcentaje: Schema.Attribute.Decimal;
-    premio: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    tipo: Schema.Attribute.String;
+    reward: Schema.Attribute.Relation<'oneToOne', 'api::reward.reward'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    usado: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     users_permissions_user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'

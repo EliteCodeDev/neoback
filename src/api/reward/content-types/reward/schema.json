@@ -17,6 +17,26 @@
     },
     "type": {
       "type": "string"
+    },
+    "probabilidad": {
+      "type": "decimal"
+    },
+    "productos": {
+      "type": "json"
+    },
+    "duracion": {
+      "type": "string",
+      "default": "ilimitado"
+    },
+    "usos": {
+      "type": "integer",
+      "default": 1
+    },
+    "ticket": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ticket.ticket",
+      "mappedBy": "reward"
     }
   }
 }
