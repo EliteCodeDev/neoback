@@ -895,6 +895,7 @@ export interface ApiTicketTicket extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cuponId: Schema.Attribute.String;
     fechaAsignacionPremio: Schema.Attribute.DateTime;
     fechaExpiracionPremio: Schema.Attribute.DateTime;
     fechaExpiracionTicket: Schema.Attribute.DateTime;

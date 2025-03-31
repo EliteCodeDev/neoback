@@ -47,6 +47,9 @@
       "relation": "manyToOne",
       "target": "api::reward.reward",
       "inversedBy": "tickets"
+    },
+    "cuponId": {
+      "type": "string"
     }
   }
 }
