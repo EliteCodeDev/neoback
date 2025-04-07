@@ -30,6 +30,13 @@
     },
     "WoocomerceId": {
       "type": "integer"
+    },
+    "hasDiscount": {
+      "type": "boolean",
+      "default": false
+    },
+    "descuento": {
+      "type": "string"
     }
   }
 }
