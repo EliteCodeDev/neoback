@@ -481,6 +481,8 @@ export interface ApiChallengeProductChallengeProduct
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    descuento: Schema.Attribute.Text;
+    hasDiscount: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -717,6 +719,7 @@ export interface ApiNotificationNotification
   extends Struct.CollectionTypeSchema {
   collectionName: 'notifications';
   info: {
+    description: '';
     displayName: 'Notification';
     pluralName: 'notifications';
     singularName: 'notification';
@@ -776,6 +779,34 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiPromotionPromotion extends Struct.CollectionTypeSchema {
+  collectionName: 'promotions';
+  info: {
+    displayName: 'promotion';
+    pluralName: 'promotions';
+    singularName: 'promotion';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::promotion.promotion'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String;
   };
 }
 
@@ -1499,6 +1530,7 @@ declare module '@strapi/strapi' {
       'api::challenge.challenge': ApiChallengeChallenge;
       'api::notification.notification': ApiNotificationNotification;
       'api::order.order': ApiOrderOrder;
+      'api::promotion.promotion': ApiPromotionPromotion;
       'api::reward.reward': ApiRewardReward;
       'api::social.social': ApiSocialSocial;
       'api::support.support': ApiSupportSupport;
