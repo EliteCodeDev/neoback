@@ -36,7 +36,7 @@
       "default": false
     },
     "descuento": {
-      "type": "string"
+      "type": "text"
     }
   }
 }
