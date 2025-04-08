@@ -785,6 +785,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
 export interface ApiPromotionPromotion extends Struct.CollectionTypeSchema {
   collectionName: 'promotions';
   info: {
+    description: '';
     displayName: 'promotion';
     pluralName: 'promotions';
     singularName: 'promotion';
@@ -796,12 +797,14 @@ export interface ApiPromotionPromotion extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::promotion.promotion'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

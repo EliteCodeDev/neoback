@@ -4,7 +4,8 @@
   "info": {
     "singularName": "promotion",
     "pluralName": "promotions",
-    "displayName": "promotion"
+    "displayName": "promotion",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -12,6 +13,13 @@
   "pluginOptions": {},
   "attributes": {
     "url": {
+      "type": "string"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "name": {
       "type": "string"
     }
   }
